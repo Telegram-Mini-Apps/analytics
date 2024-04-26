@@ -1,0 +1,18 @@
+{
+  "name": "miniappsanalytics",
+  "version": "0.0.13",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "author": "Cameron Nokes",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^2.9.2"
+  },
+  "dependencies": {
+    "@types/es6-promise": "^3.3.0"
+  },
+  "description": ""
+}
