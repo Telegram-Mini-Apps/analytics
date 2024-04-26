@@ -1,6 +1,6 @@
-# Miniappsanalytisc
+# Miniapps analytisc
 ### Version 0.0.1
-Mini apps analytics is an SDK that allows owners of Telegram web applications to receive analytics about consumer actions of their miniapp.
+Miniapps analytics is an SDK that allows owners of Telegram web applications to receive analytics about consumer actions of their miniapp.
 
 ## Installation
 1. Add the script tag to your html head
