@@ -1,19 +1,8 @@
 import {EventAttributes} from "../interfaces/event-attributes.interface";
 
 const ANALYTICS_STORAGE = window.localStorage;
-const URL = 'http://localhost:3000/'
+const URL = 'http://178.154.225.62:3000/'
 
-// async function createToken(telegramUID: string){
-//     return await fetch(URL+'token',{
-//         method: 'POST',
-//         headers: {
-//             "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//             telegramUID: telegramUID,
-//         })
-//     })
-// }
 async function recordEvent(event_name: string, attributes?: EventAttributes){
     await fetch(URL+'events',{
         method: 'POST',
