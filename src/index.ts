@@ -1,15 +1,14 @@
 import {EventAttributes} from "./interfaces/event-attributes.interface";
 
-
 const BACKEND_URL: string = 'http://localhost:3000/'
-let TOKEN_ANALYTICS: string;
+let TOKEN: string;
 
 (function (window: Window) {
     async function recordEvent(event_name: string, attributes?: EventAttributes){
         await fetch(BACKEND_URL+'events',{
             method: 'POST',
             headers: {
-                "token": TOKEN_ANALYTICS,
+                "token": TOKEN,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
@@ -20,7 +19,7 @@ let TOKEN_ANALYTICS: string;
     }
 
     async function init(token: string){
-        TOKEN_ANALYTICS = token;
+        TOKEN = token;
         await recordEvent('init');
     }
 
