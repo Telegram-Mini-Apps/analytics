@@ -1,22 +1,30 @@
-import {EventAttributes} from "../interfaces/event-attributes.interface";
+import {EventAttributes} from "./interfaces/event-attributes.interface";
 
-const ANALYTICS_STORAGE = window.localStorage;
-const URL = 'http://178.154.225.62:3000/'
 
-async function recordEvent(event_name: string, attributes?: EventAttributes){
-    await fetch(URL+'events',{
-        method: 'POST',
-        headers: {
-            "token": ANALYTICS_STORAGE.getItem('analyticsToken') as string,
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            event_name: event_name,
-            attributes: attributes,
-        }),
-    })
-}
+const BACKEND_URL: string = 'http://localhost:3000/'
+let TOKEN_ANALYTICS: string;
 
-document.addEventListener("DOMContentLoaded",async ()=>{
-    await recordEvent('init')
-})
+(function (window: Window) {
+    async function recordEvent(event_name: string, attributes?: EventAttributes){
+        await fetch(BACKEND_URL+'events',{
+            method: 'POST',
+            headers: {
+                "token": TOKEN_ANALYTICS,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                event_name: event_name,
+                attributes: attributes,
+            }),
+        })
+    }
+
+    async function init(token: string){
+        TOKEN_ANALYTICS = token;
+        await recordEvent('init');
+    }
+
+    window.telegramAnalytics = {
+        init,
+    }
+})(window);
