@@ -1,6 +1,6 @@
 import {EventAttributes} from "./interfaces/event-attributes.interface";
 
-const BACKEND_URL: string = 'http://178.154.225.62:3000/'
+const BACKEND_URL: string = 'http://tganalytics.xyz:3000/'
 let TOKEN: string;
 
 (function (window: Window) {
