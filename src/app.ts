@@ -1,4 +1,5 @@
 import { Events } from './constants'
+import { AnalyticsController } from './controllers/Analytics.conroller'
 import { NetworkController } from './controllers/Network.controller'
 import { SessionController } from './controllers/Session.controller'
 
@@ -6,6 +7,7 @@ export class App {
     constructor(apiToken: string, appName: string) {
         this.sessionController = new SessionController(this);
         this.networkController = new NetworkController(this);
+        this.analyticsController = new AnalyticsController(this);
         this.apiToken = apiToken;
         this.appName = appName;
     }
@@ -13,6 +15,7 @@ export class App {
     public async init() {
         this.networkController.init();
         this.sessionController.init();
+        this.analyticsController.init();
 
         await this.networkController.recordEvent(Events.INIT);
     }
@@ -25,6 +28,14 @@ export class App {
         return this.sessionController.getSaltedUserId();
     }
 
+    public recordEvent(
+        event_name: string,
+        data?: Record<string, string>,
+        attributes?: Record<string, string>,
+    ) {
+        return this.networkController.recordEvent(event_name, attributes);
+    }
+
     public getApiToken() {
         return this.apiToken;
     }
@@ -35,6 +46,7 @@ export class App {
 
     private sessionController: SessionController;
     private networkController: NetworkController;
+    private analyticsController: AnalyticsController;
 
     private apiToken: string;
     private appName: string;

@@ -5,7 +5,7 @@ import obfuscator from 'rollup-plugin-obfuscator';
 export default {
     input: 'src/index.ts',
     output: {
-        dir: 'output',
+        dir: 'dist',
         format: 'cjs'
     },
     plugins: [

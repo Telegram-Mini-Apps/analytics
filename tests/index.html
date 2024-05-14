@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="../output/index.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="./index.js"></script>
+    <script src="https://unpkg.com/@tonconnect/ui@2.0.3-beta.0/dist/tonconnect-ui.min.js"></script>
     <script>
+        console.log(window.telegramAnalytics);
         window.telegramAnalytics.init({
             token: 'eyJhcHBfbmFtZSI6IlRlc3RpbmcyIiwiYXBwX3VybCI6Imh0dHBzOi8vdC5tZS90ZXN0aW5nX21pbmlhcHBfYm90IiwiYXBwX2RvbWFpbiI6Imh0dHBzOi8vZDA5MC04MC0yNTEtMjMzLTEzOS5uZ3Jvay1mcmVlLmFwcCJ9!MK8KEPh5L9rtkPZgQTxiQuvYCF5w8zytg5Cpfw46SpA=',
             appName: 'Testing2',
@@ -12,6 +15,17 @@
     </script>
 </head>
 <body>
+<div>
+    <button id="test">
+        Test
+    </button>
+</div>
 
+<script>
+    const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+        manifestUrl: 'https://<YOUR_APP_URL>/tonconnect-manifest.json',
+        buttonRootId: 'test'
+    });
+</script>
 </body>
 </html>
