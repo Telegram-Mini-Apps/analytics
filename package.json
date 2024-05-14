@@ -1,6 +1,6 @@
 {
-  "name": "miniappsanalytics",
-  "version": "0.0.17",
+  "name": "@telegram-apps/analytics",
+  "version": "0.1.0",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
@@ -10,7 +10,7 @@
   "author": "Cameron Nokes",
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^3.9.10"
+    "typescript": "^5.4.5"
   },
   "dependencies": {
     "@rollup/plugin-typescript": "^11.1.6",
@@ -24,5 +24,8 @@
   "resolutions": {
     "@types/node": "18.11.9"
   },
-  "description": ""
+  "description": "Telegram analytics is a unique SDK that turns your mini-application into a source of valuable data.",
+  "directories": {
+    "test": "tests"
+  }
 }

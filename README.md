@@ -1,20 +1,5 @@
-# Miniapps analytics
-### Version 0.0.2
-Miniapps analytics is an SDK that allows owners of Telegram web applications to receive analytics about consumer actions of their miniapp.
+# Telegram Analytics
+### Version 0.1.0
+Telegram analytics is a unique SDK and API that turns your mini-application into a source of valuable data. Telegram analytics doesn't just track user activity in your app, it turns it into clear and useful analytics. With this tool, you get instant access to key metrics that help you understand how users interact with your application and what steps need to be taken to optimize it.
 
-## Installation
-1. Add the script tag to your html head
-```html
-<script src="https://unpkg.com/miniappsanalytics@latest/dist/src/index.js" type="text/javascript"></script>
-```
-2. Start a conversation with a bot that will give you a unique identifier (https://t.me/analyticsminiapps_bot or @analyticsminiapps_bot)
-3. Initialize the token on your HTML page
-```html
-<script>
-    window.telegramAnalytics.init('YOUR_TOKEN')
-</script>
-```
-
-## Result
-
-As a result, after initializing your webapp, the statistics will record that the user has opened a miniapp
+### [Documentation](https://docs.tganalytics.xyz)
