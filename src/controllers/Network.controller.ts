@@ -10,7 +10,11 @@ export class NetworkController {
     public init() {
     }
 
-    public async recordEvent(event_name: string, attributes?: Record<string, string>) {
+    public async recordEvent(
+        event_name: string,
+        data?: Record<string, string>,
+        attributes?: Record<string, string>,
+    ) {
         if (!this.appModule.getApiToken()) {
             throwError(Errors.TOKEN_IS_NOT_PROVIDED);
         }
@@ -22,6 +26,7 @@ export class NetworkController {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
+                ...data,
                 event_name: event_name,
                 attributes: attributes,
                 session_id: this.appModule.getSessionId(),
