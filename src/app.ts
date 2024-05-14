@@ -33,7 +33,7 @@ export class App {
         data?: Record<string, string>,
         attributes?: Record<string, string>,
     ) {
-        return this.networkController.recordEvent(event_name, attributes);
+        return this.networkController.recordEvent(event_name, data, attributes);
     }
 
     public getApiToken() {
@@ -48,6 +48,6 @@ export class App {
     private networkController: NetworkController;
     private analyticsController: AnalyticsController;
 
-    private apiToken: string;
-    private appName: string;
+    private readonly apiToken: string;
+    private readonly appName: string;
 }

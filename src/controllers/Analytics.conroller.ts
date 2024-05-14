@@ -9,14 +9,24 @@ export class AnalyticsController {
 
     public init() {
         for (let eventType of this.events)  {
-            console.log(`ton-connect-ui-${eventType}`);
+            console.log(`Attach ton-connect-ui-${eventType} listener`);
 
-            window.addEventListener(`ton-connect-ui-${eventType}`, (event: CustomEvent<UserActionEvent>) => {
+            window.addEventListener(
+                `ton-connect-ui-${eventType}`,
+                (event: CustomEvent<UserActionEvent>) => {
                 console.log(`event ${eventType} received`, event.detail);
 
-                const { type, ...rest } = event.detail;
-                this.recordEvent(event.detail.type, { ...rest });
-            });
+                    const {
+                        type,
+                        ...rest
+                    } = event.detail;
+
+                    this.recordEvent(
+                        event.detail.type,
+                        { ...rest },
+                    );
+                }
+            );
         }
     }
 
