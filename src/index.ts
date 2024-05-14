@@ -1,26 +1,14 @@
-import {EventAttributes} from "./interfaces/event-attributes.interface";
+import { App } from './app'
+import { NetworkController } from './controllers/Network.controller'
 
-const BACKEND_URL: string = 'http://tganalytics.xyz:3000/'
+const BACKEND_URL: string = 'https://tganalytics.xyz/'
 let TOKEN: string;
 
 (function (window: Window) {
-    async function recordEvent(event_name: string, attributes?: EventAttributes){
-        await fetch(BACKEND_URL+'events',{
-            method: 'POST',
-            headers: {
-                "token": TOKEN,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                event_name: event_name,
-                attributes: attributes,
-            }),
-        })
-    }
 
-    async function init(token: string){
-        TOKEN = token;
-        await recordEvent('init');
+    async function init({ token, appName }){
+        const app = new App(token, appName);
+        app.init()
     }
 
     window.telegramAnalytics = {

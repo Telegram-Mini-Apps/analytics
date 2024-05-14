@@ -1,21 +1,22 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "ES5",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "types": ["node"],
     "lib": [
       "es2015",
       "es7",
       "es6",
-      "dom"
+      "dom",
     ],
-    "typeRoots": ["./node_modules/@types", "./src/types"],
-    "declaration": true,
-    "outDir": "dist",
-    "strict": true,
-    "esModuleInterop": true
   },
+  "include": [
+    "src",
+    "declaration.d.ts"
+  ],
   "exclude": [
-    "node_modules",
-    "dist",
-    ".idea"
-  ]
+      "node_modules",
+      "output",
+  ],
 }

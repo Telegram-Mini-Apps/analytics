@@ -2,17 +2,26 @@
   "name": "miniappsanalytics",
   "version": "0.0.17",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "type": "module",
   "scripts": {
-    "build": "tsc"
+    "build": "rollup -c",
+    "watch": "rollup -c --watch"
   },
   "author": "Cameron Nokes",
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^2.9.2"
+    "typescript": "^3.9.10"
   },
   "dependencies": {
-    "@types/es6-promise": "^3.3.0"
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@twa-dev/types": "^7.0.0",
+    "@types/es6-promise": "^3.3.0",
+    "javascript-obfuscator": "^4.1.0",
+    "rollup-plugin-obfuscator": "^1.1.0",
+    "rollup-plugin-terser": "^7.0.2"
+  },
+  "resolutions": {
+    "@types/node": "18.11.9"
   },
   "description": ""
 }
