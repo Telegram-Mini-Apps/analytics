@@ -1,3 +1,4 @@
+// refs: https://geraintluff.github.io/sha256/
 // @ts-ignore
 // @ts-nocheck
 export function sha256(ascii) {
