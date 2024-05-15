@@ -44,6 +44,12 @@ export class App {
         return this.appName;
     }
 
+    public getUserIsPremium() {
+        const userData = this.sessionController.getUserData();
+
+        return Boolean(userData?.is_premium);
+    }
+
     private sessionController: SessionController;
     private networkController: NetworkController;
     private analyticsController: AnalyticsController;

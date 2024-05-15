@@ -28,16 +28,17 @@ export class NetworkController {
             body: JSON.stringify({
                 ...data,
                 event_name: event_name,
-                attributes: attributes,
+                custom_data: attributes,
                 session_id: this.appModule.getSessionId(),
                 user_id: this.appModule.getSaltedUserId(),
                 app_name: this.appModule.getAppName(),
+                is_premium: this.appModule.getUserIsPremium(),
+                timestamp: String(Date.now()),
             }),
         })
     }
 
     private BACKEND_URL: string = BACKEND_URL;
-    private TOKEN: string;
 
     private appModule: App;
 }

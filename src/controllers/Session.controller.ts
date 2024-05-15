@@ -31,6 +31,10 @@ export class SessionController {
         return this.saltedUserId;
     }
 
+    public getUserData() {
+        return this.userData;
+    }
+
     private sessionId: string;
     private userId: string;
     private saltedUserId: string;
