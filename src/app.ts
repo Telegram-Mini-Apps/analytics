@@ -1,5 +1,5 @@
 import { Events } from './constants'
-import { AnalyticsController } from './controllers/Analytics.conroller'
+import { AnalyticsController } from './controllers/Analytics.controller'
 import { NetworkController } from './controllers/Network.controller'
 import { SessionController } from './controllers/Session.controller'
 
