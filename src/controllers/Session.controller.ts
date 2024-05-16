@@ -15,7 +15,7 @@ export class SessionController {
             throwError(Errors.USER_DATA_IS_NOT_PROVIDED);
         }
 
-        this.sessionId = generateUUID(this.getUserId());
+        this.sessionId = generateUUID(String(this.getUserId()));
         this.saltedUserId = sha256(this.getUserId() + this.appModule.getApiToken());
     }
 
