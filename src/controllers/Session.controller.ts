@@ -15,6 +15,10 @@ export class SessionController {
             throwError(Errors.USER_DATA_IS_NOT_PROVIDED);
         }
 
+        this.userId = this.userData.id;
+        this.userLocale = this.userData?.language_code;
+        this.webAppStartParam = window?.Telegram?.WebApp?.initDataUnsafe?.start_param;
+        this.platform = window?.Telegram?.WebApp?.platform;
         this.sessionId = generateUUID(String(this.getUserId()));
         this.saltedUserId = sha256(this.getUserId() + this.appModule.getApiToken());
     }
@@ -24,7 +28,19 @@ export class SessionController {
     }
 
     public getUserId() {
-        return window?.Telegram?.WebApp?.initDataUnsafe?.user?.id;
+        return this.userId;
+    }
+
+    public getWebAppStartParam() {
+        return this.webAppStartParam;
+    }
+
+    public getPlatform(){
+        return this.platform;
+    }
+
+    public getUserLocale() {
+        return this.userLocale;
     }
 
     public getSaltedUserId() {
@@ -36,9 +52,12 @@ export class SessionController {
     }
 
     private sessionId: string;
-    private userId: string;
+    private userId: number;
     private saltedUserId: string;
-    private userData: WebAppUser
+    private userData: WebAppUser;
+    private platform: string;
+    private webAppStartParam: string;
+    private userLocale: string;
 
     private appModule: App;
 }

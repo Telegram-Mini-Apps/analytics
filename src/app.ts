@@ -28,6 +28,18 @@ export class App {
         return this.sessionController.getSaltedUserId();
     }
 
+    public getWebAppStartParam() {
+        return this.sessionController.getWebAppStartParam();
+    }
+
+    public getUserLocale() {
+        return this.sessionController.getUserLocale();
+    }
+
+    public getPlatform(){
+        return this.sessionController.getPlatform();
+    }
+
     public recordEvent(
         event_name: string,
         data?: Record<string, string>,
