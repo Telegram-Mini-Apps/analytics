@@ -33,7 +33,10 @@ export class NetworkController {
                 user_id: this.appModule.getSaltedUserId(),
                 app_name: this.appModule.getAppName(),
                 is_premium: this.appModule.getUserIsPremium(),
-                timestamp: String(Date.now()),
+                platform: this.appModule.getPlatform(),
+                locale: this.appModule.getUserLocale(),
+                start_param: this.appModule.getWebAppStartParam(),
+                client_timestamp: String(Date.now()),
             }),
         })
     }
