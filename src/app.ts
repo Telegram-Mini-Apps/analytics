@@ -1,5 +1,5 @@
 import { Events } from './constants'
-import { AnalyticsController } from './controllers/Analytics.conroller'
+import { AnalyticsController } from './controllers/Analytics.controller'
 import { NetworkController } from './controllers/Network.controller'
 import { SessionController } from './controllers/Session.controller'
 
@@ -28,12 +28,24 @@ export class App {
         return this.sessionController.getSaltedUserId();
     }
 
+    public getWebAppStartParam() {
+        return this.sessionController.getWebAppStartParam();
+    }
+
+    public getUserLocale() {
+        return this.sessionController.getUserLocale();
+    }
+
+    public getPlatform(){
+        return this.sessionController.getPlatform();
+    }
+
     public recordEvent(
         event_name: string,
         data?: Record<string, string>,
         attributes?: Record<string, string>,
     ) {
-        return this.networkController.recordEvent(event_name, attributes);
+        return this.networkController.recordEvent(event_name, data, attributes);
     }
 
     public getApiToken() {
@@ -44,10 +56,16 @@ export class App {
         return this.appName;
     }
 
+    public getUserIsPremium() {
+        const userData = this.sessionController.getUserData();
+
+        return Boolean(userData?.is_premium);
+    }
+
     private sessionController: SessionController;
     private networkController: NetworkController;
     private analyticsController: AnalyticsController;
 
-    private apiToken: string;
-    private appName: string;
+    private readonly apiToken: string;
+    private readonly appName: string;
 }
