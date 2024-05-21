@@ -30,7 +30,7 @@ export class NetworkController {
                 event_name: event_name,
                 custom_data: attributes,
                 session_id: this.appModule.getSessionId(),
-                user_id: this.appModule.getSaltedUserId(),
+                user_id: this.appModule.getUserId(),
                 app_name: this.appModule.getAppName(),
                 is_premium: this.appModule.getUserIsPremium(),
                 platform: this.appModule.getPlatform(),

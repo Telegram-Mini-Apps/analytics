@@ -24,8 +24,8 @@ export class App {
         return this.sessionController.getSessionId();
     }
 
-    public getSaltedUserId() {
-        return this.sessionController.getSaltedUserId();
+    public getUserId() {
+        return this.sessionController.getUserId();
     }
 
     public getWebAppStartParam() {

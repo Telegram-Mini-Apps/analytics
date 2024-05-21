@@ -2,7 +2,6 @@ import { WebAppUser } from '@twa-dev/types'
 import { App } from '../app'
 import { Errors, throwError } from '../errors'
 import { generateUUID } from '../utils/generateUUID';
-import { sha256 } from '../utils/sha256';
 
 export class SessionController {
     constructor(app: App) {
@@ -20,7 +19,6 @@ export class SessionController {
         this.webAppStartParam = window?.Telegram?.WebApp?.initDataUnsafe?.start_param;
         this.platform = window?.Telegram?.WebApp?.platform;
         this.sessionId = generateUUID(String(this.getUserId()));
-        this.saltedUserId = sha256(this.getUserId() + this.appModule.getApiToken());
     }
 
     public getSessionId() {
@@ -43,17 +41,12 @@ export class SessionController {
         return this.userLocale;
     }
 
-    public getSaltedUserId() {
-        return this.saltedUserId;
-    }
-
     public getUserData() {
         return this.userData;
     }
 
     private sessionId: string;
     private userId: number;
-    private saltedUserId: string;
     private userData: WebAppUser;
     private platform: string;
     private webAppStartParam: string;
