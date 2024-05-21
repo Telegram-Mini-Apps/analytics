@@ -1,4 +1,4 @@
-import { UserActionEvent } from '@tonconnect/ui'
+import { UserActionEvent, SdkActionEvent } from '@tonconnect/ui'
 import { App } from '../app'
 import { Events } from '../constants'
 
@@ -9,11 +9,11 @@ export class AnalyticsController {
 
     public init() {
         for (let eventType of this.events)  {
-            console.log(`Attach ton-connect-ui-${eventType} listener`);
+            console.log(`Attach ${eventType} listener`);
 
             window.addEventListener(
-                `ton-connect-ui-${eventType}`,
-                (event: CustomEvent<UserActionEvent>) => {
+                eventType,
+                (event: CustomEvent<UserActionEvent | SdkActionEvent>) => {
                 console.log(`event ${eventType} received`, event.detail);
 
                     const {
@@ -31,11 +31,11 @@ export class AnalyticsController {
     }
 
     public recordEvent(event_name: string, data?: any) {
-        this.appModule.recordEvent(event_name, data);
+        this.appModule.recordEvent(event_name, data).catch(e => console.error(e));
     }
 
     private appModule: App;
-    private events: Array<Events> = [
+    private sdkEvents: Array<Events> = [
         Events.CUSTOM_EVENT,
         Events.WALLET_CONNECT_STARTED,
         Events.WALLET_CONNECT_SUCCESS,
@@ -48,4 +48,15 @@ export class AnalyticsController {
         Events.TRANSACTION_SIGNING_FAILED,
         Events.WALLET_DISCONNECT,
     ]
+    private uiEvents: Array<Events> = [
+        Events.WALLET_CONNECT_ERROR,
+        Events.TRANSACTION_SIGNING_FAILED,
+    ]
+    private uiScope: string = 'ton-connect-ui-'
+    private sdkScope: string = 'ton-connect-'
+    private get events(): string[] {
+        const uiEvents = this.uiEvents.map((event) => `${this.uiScope}${event}`)
+        const sdkEvents = this.sdkEvents.map((event) => `${this.sdkScope}${event}`)
+        return [...uiEvents, ...sdkEvents]
+    }
 }
