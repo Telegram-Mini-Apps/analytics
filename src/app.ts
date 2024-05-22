@@ -2,14 +2,12 @@ import { Events } from './constants'
 import { AnalyticsController } from './controllers/Analytics.controller'
 import { NetworkController } from './controllers/Network.controller'
 import { SessionController } from './controllers/Session.controller'
-import {InterfaceController} from "./controllers/Interface.controller";
 
 export class App {
     constructor(apiToken: string, appName: string) {
         this.sessionController = new SessionController(this);
         this.networkController = new NetworkController(this);
         this.analyticsController = new AnalyticsController(this);
-        this.interfaceController = new InterfaceController(this);
         this.apiToken = apiToken;
         this.appName = appName;
     }
@@ -18,7 +16,6 @@ export class App {
         this.networkController.init();
         this.sessionController.init();
         this.analyticsController.init();
-        this.interfaceController.init();
 
         await this.networkController.recordEvent(Events.INIT);
     }
@@ -68,7 +65,6 @@ export class App {
     private sessionController: SessionController;
     private networkController: NetworkController;
     private analyticsController: AnalyticsController;
-    private interfaceController: InterfaceController;
 
     private readonly apiToken: string;
     private readonly appName: string;

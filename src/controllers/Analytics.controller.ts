@@ -8,6 +8,10 @@ export class AnalyticsController {
     }
 
     public init() {
+        for (let [event, callback] of Object.entries(this.documentEvents)) {
+            document.addEventListener(event, callback);
+        }
+
         for (let eventType of this.events)  {
             console.log(`Attach ${eventType} listener`);
 
@@ -35,7 +39,7 @@ export class AnalyticsController {
     }
 
     private appModule: App;
-    private sdkEvents: Array<Events> = [
+    private tonConnectSdkEvents: Array<Events> = [
         Events.CUSTOM_EVENT,
         Events.WALLET_CONNECT_STARTED,
         Events.WALLET_CONNECT_SUCCESS,
@@ -48,15 +52,22 @@ export class AnalyticsController {
         Events.TRANSACTION_SIGNING_FAILED,
         Events.WALLET_DISCONNECT,
     ]
-    private uiEvents: Array<Events> = [
+    private tonConnectUiEvents: Array<Events> = [
         Events.WALLET_CONNECT_ERROR,
         Events.TRANSACTION_SIGNING_FAILED,
     ]
+    private documentEvents: Record<string, (event?: Event) => void> = {
+        'visibilitychange': () => {
+            if (document.visibilityState === 'hidden'){
+                this.recordEvent(Events.HIDE)
+            }
+        },
+    }
     private uiScope: string = 'ton-connect-ui-'
     private sdkScope: string = 'ton-connect-'
     private get events(): string[] {
-        const uiEvents = this.uiEvents.map((event) => `${this.uiScope}${event}`)
-        const sdkEvents = this.sdkEvents.map((event) => `${this.sdkScope}${event}`)
-        return [...uiEvents, ...sdkEvents]
+        const tonConnectUiEvents = this.tonConnectUiEvents.map((event) => `${this.uiScope}${event}`)
+        const tonConnectSdkEvents = this.tonConnectSdkEvents.map((event) => `${this.sdkScope}${event}`)
+        return [...tonConnectUiEvents, ...tonConnectSdkEvents]
     }
 }
