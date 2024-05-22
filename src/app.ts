@@ -17,6 +17,11 @@ export class App {
         this.sessionController.init();
         this.analyticsController.init();
 
+        document.onvisibilitychange = async () => {
+            if (document.visibilityState === 'hidden'){
+                await this.networkController.recordEvent(Events.HIDE);
+            }
+        }
         await this.networkController.recordEvent(Events.INIT);
     }
 

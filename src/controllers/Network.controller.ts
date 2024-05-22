@@ -38,6 +38,7 @@ export class NetworkController {
                 start_param: this.appModule.getWebAppStartParam(),
                 client_timestamp: String(Date.now()),
             }),
+            keepalive: true,
         })
     }
 
