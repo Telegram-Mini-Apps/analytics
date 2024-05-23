@@ -2,6 +2,7 @@ export const BACKEND_URL: string = 'https://tganalytics.xyz/'
 
 export const enum Events {
     INIT = 'app-init',
+    HIDE = 'app-hide',
     CUSTOM_EVENT = 'custom-event',
     WALLET_CONNECT_STARTED = 'connection-started',
     WALLET_CONNECT_SUCCESS = 'connection-completed',
