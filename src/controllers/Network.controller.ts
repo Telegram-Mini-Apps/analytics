@@ -39,7 +39,6 @@ export class NetworkController {
                 client_timestamp: String(Date.now()),
             }),
             keepalive: true,
-            mode: 'same-origin',
         })
     }
 
