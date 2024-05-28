@@ -15,11 +15,19 @@ export class NetworkController {
 
     public async recordEvent(
         event_name: string,
-        data?: Record<string, string>,
-        attributes?: Record<string, string>,
+        data?: Record<string, any>,
+        attributes?: Record<string, any>,
     ) {
         if (!this.appModule.getApiToken()) {
             throwError(Errors.TOKEN_IS_NOT_PROVIDED);
+        }
+
+        if (data?.custom_data) {
+            if (!attributes) {
+                attributes = data.custom_data;
+            } else {
+                attributes = Object.assign(data.custom_data, attributes);
+            }
         }
 
         await fetch(this.BACKEND_URL+'events',{
