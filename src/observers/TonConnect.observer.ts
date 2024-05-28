@@ -34,7 +34,6 @@ export class TonConnectObserver {
 
     private tonConnectSdkEvents: Array<Events> = [
         Events.CUSTOM_EVENT,
-        Events.WALLET_CONNECT_STARTED,
         Events.WALLET_CONNECT_SUCCESS,
         Events.WALLET_CONNECT_ERROR,
         Events.CONNECTION_RESTORING_STARTED,
@@ -46,6 +45,7 @@ export class TonConnectObserver {
         Events.WALLET_DISCONNECT,
     ]
     private tonConnectUiEvents: Array<Events> = [
+        Events.WALLET_CONNECT_STARTED,
         Events.WALLET_CONNECT_ERROR,
         Events.TRANSACTION_SIGNING_FAILED,
     ]
