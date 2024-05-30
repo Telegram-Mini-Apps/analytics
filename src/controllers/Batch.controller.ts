@@ -11,6 +11,10 @@ export class BatchController {
     constructor(appModule: App) {
         this.storage = window?.Telegram?.WebApp.CloudStorage;
 
+        if (window.localStorage.getItem(BATCH_KEY) === null) {
+            window.localStorage.setItem(BATCH_KEY, JSON.stringify([]));
+        }
+
         this.storage.getItem(BATCH_KEY, (error: string | null, result: string) => {
             if (error !== null) {
                 console.log(error);
@@ -19,6 +23,10 @@ export class BatchController {
 
             if (result === ''){
                 this.storage.setItem(BATCH_KEY, JSON.stringify([]));
+            }
+
+            if (JSON.parse(result).length !== JSON.parse(window.localStorage.getItem(BATCH_KEY))) {
+                this.storage.setItem(BATCH_KEY, window.localStorage.getItem(BATCH_KEY));
             }
         });
 
@@ -38,6 +46,13 @@ export class BatchController {
     }
 
     public addToQueue(event_name: string, requestBody?: Record<string, any>) {
+        let data = JSON.parse(window.localStorage.getItem(BATCH_KEY));
+        data.push({
+            event_name,
+            ...requestBody,
+        });
+        window.localStorage.setItem(BATCH_KEY, JSON.stringify(data));
+
         this.storage.getItem(BATCH_KEY, (error: string | null, result: string) => {
             if (error !== null) {
                 console.log(error);
@@ -66,8 +81,6 @@ export class BatchController {
                 return;
             }
 
-            console.log(result);
-
             if (JSON.parse(result).length === 0) {
                return;
             }
@@ -83,8 +96,10 @@ export class BatchController {
                 return;
             }
 
-            if (JSON.parse(result).length === 0) {
-                return;
+            if (JSON.parse(result).length === JSON.parse(window.localStorage.getItem(BATCH_KEY)).length){
+                if (JSON.parse(result).length === 0) {
+                    return;
+                }
             }
 
             this.storage.setItem(BATCH_KEY, JSON.stringify([]));

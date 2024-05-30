@@ -17,7 +17,7 @@ export class NetworkController {
             throwError(Errors.TOKEN_IS_NOT_PROVIDED);
         }
 
-        return await fetch(this.BACKEND_URL+'events',{
+        return await fetch(this.BACKEND_URL + 'events',{
             method: 'POST',
             headers: {
                 "TGA-Auth-Token": this.appModule.getApiToken(),

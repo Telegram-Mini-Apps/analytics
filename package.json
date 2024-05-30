@@ -1,6 +1,6 @@
 {
-  "name": "tganalyticssdktest",
-  "version": "0.0.54",
+  "name": "@telegram-apps/analytics",
+  "version": "1.0.18",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
