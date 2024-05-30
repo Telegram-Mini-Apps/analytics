@@ -15,8 +15,12 @@ export class AnalyticsController {
         this.tonConnectObserver.init();
     }
 
-    public recordEvent(event_name: string, data?: any) {
+    public recordEvent(event_name: string, data?: Record<string, any>) {
         this.appModule.recordEvent(event_name, data).catch(e => console.error(e));
+    }
+
+    public addToQueue(event_name: string, data?: Record<string, any>) {
+        this.appModule.addToQueue(event_name, data);
     }
 
     private appModule: App;

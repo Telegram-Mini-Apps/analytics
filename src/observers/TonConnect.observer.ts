@@ -21,7 +21,7 @@ export class TonConnectObserver {
                         ...rest
                     } = event.detail;
 
-                    this.analyticsController.recordEvent(
+                    this.analyticsController.addToQueue(
                         event.detail.type,
                         { ...rest },
                     );

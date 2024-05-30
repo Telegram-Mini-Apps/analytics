@@ -16,8 +16,8 @@ export class DocumentObserver {
 
     private documentEvents: Record<string, (event?: Event) => void> = {
         'visibilitychange': () => {
-            if (document.visibilityState === 'hidden'){
-                this.analyticsController.recordEvent(Events.HIDE)
+            if (document.visibilityState === 'hidden') {
+                this.analyticsController.addToQueue(Events.HIDE);
             }
         },
     }

@@ -1,4 +1,5 @@
-export const BACKEND_URL: string = 'https://tganalytics.xyz/'
+export const BACKEND_URL: string = 'https://lsv7pc-ip-81-19-141-222.tunnelmole.net/';
+export const BATCH_KEY: string = 'TGA-Batch-Requests';
 
 export const enum Events {
     INIT = 'app-init',
