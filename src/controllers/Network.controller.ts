@@ -1,13 +1,10 @@
 import { App } from '../app'
 import { BACKEND_URL } from '../constants'
 import { Errors, throwError } from '../errors'
-import { KeepAliveSupportChecker } from "../checkers/KeepAliveSupport.checker";
 
 export class NetworkController {
     constructor(app: App) {
         this.appModule = app;
-
-        this.isKeepAliveSupported = KeepAliveSupportChecker.isSupported();
     }
 
     public init() {
@@ -49,12 +46,10 @@ export class NetworkController {
                 start_param: this.appModule.getWebAppStartParam(),
                 client_timestamp: String(Date.now()),
             }),
-            keepalive: this.isKeepAliveSupported,
         });
     }
 
     private BACKEND_URL: string = BACKEND_URL;
 
     private appModule: App;
-    private readonly isKeepAliveSupported: boolean;
 }
