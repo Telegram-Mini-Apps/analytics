@@ -4,6 +4,15 @@ import { Errors, throwError } from '../errors'
 import { generateUUID } from '../utils/generateUUID';
 
 export class SessionController {
+    private sessionId: string;
+    private userId: number;
+    private userData: WebAppUser;
+    private platform: string;
+    private webAppStartParam: string;
+    private userLocale: string;
+
+    private appModule: App;
+
     constructor(app: App) {
         this.appModule = app;
     }
@@ -63,13 +72,4 @@ export class SessionController {
             client_timestamp: String(Date.now()),
         }
     }
-
-    private sessionId: string;
-    private userId: number;
-    private userData: WebAppUser;
-    private platform: string;
-    private webAppStartParam: string;
-    private userLocale: string;
-
-    private appModule: App;
 }
