@@ -45,6 +45,25 @@ export class SessionController {
         return this.userData;
     }
 
+    public getUserIsPremium() {
+        const userData = this.getUserData();
+
+        return Boolean(userData?.is_premium);
+    }
+
+    public assembleEventSession() {
+        return {
+            session_id: this.getSessionId(),
+            user_id: this.getUserId(),
+            app_name: this.appModule.getAppName(),
+            is_premium: this.getUserIsPremium(),
+            platform: this.getPlatform(),
+            locale: this.getUserLocale(),
+            start_param: this.getWebAppStartParam(),
+            client_timestamp: String(Date.now()),
+        }
+    }
+
     private sessionId: string;
     private userId: number;
     private userData: WebAppUser;

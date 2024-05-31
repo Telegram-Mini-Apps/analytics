@@ -3,20 +3,23 @@ import { BACKEND_URL } from '../constants'
 import { Errors, throwError } from '../errors'
 
 export class NetworkController {
+    private appModule: App;
+
+    private readonly BACKEND_URL: string = BACKEND_URL;
+
     constructor(app: App) {
         this.appModule = app;
-    }
 
-    public init() {
-    }
-
-    public async recordManyEvents(
-        data: Record<string, any>[]
-    ) {
         if (!this.appModule.getApiToken()) {
             throwError(Errors.TOKEN_IS_NOT_PROVIDED);
         }
+    }
 
+    public init() {}
+
+    public async recordEvents(
+        data: Record<string, any>[],
+    ) {
         return await fetch(this.BACKEND_URL + 'events',{
             method: 'POST',
             headers: {
@@ -32,10 +35,6 @@ export class NetworkController {
         data?: Record<string, any>,
         attributes?: Record<string, any>,
     ) {
-        if (!this.appModule.getApiToken()) {
-            throwError(Errors.TOKEN_IS_NOT_PROVIDED);
-        }
-
         if (data?.custom_data) {
             if (!attributes) {
                 attributes = data.custom_data;
@@ -44,7 +43,7 @@ export class NetworkController {
             }
         }
 
-        await fetch(this.BACKEND_URL+'events',{
+        await fetch(this.BACKEND_URL + 'events',{
             method: 'POST',
             headers: {
                 "TGA-Auth-Token": this.appModule.getApiToken(),
@@ -58,8 +57,4 @@ export class NetworkController {
             }),
         });
     }
-
-    private BACKEND_URL: string = BACKEND_URL;
-
-    private appModule: App;
 }

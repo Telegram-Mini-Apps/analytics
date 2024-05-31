@@ -1,8 +1,12 @@
 import { App } from '../app'
-import {TonConnectObserver} from "../observers/TonConnect.observer";
-import {DocumentObserver} from "../observers/Document.observer";
+import { TonConnectObserver } from "../observers/TonConnect.observer";
+import { DocumentObserver } from "../observers/Document.observer";
 
 export class AnalyticsController {
+    private appModule: App;
+    private tonConnectObserver: TonConnectObserver;
+    private documentObserver: DocumentObserver;
+
     constructor(app: App) {
         this.appModule = app;
 
@@ -19,11 +23,7 @@ export class AnalyticsController {
         this.appModule.recordEvent(event_name, data).catch(e => console.error(e));
     }
 
-    public addToQueue(event_name: string, data?: Record<string, any>) {
-        this.appModule.addToQueue(event_name, data);
+    public collectEvent(event_name: string, data?: Record<string, any>) {
+        this.appModule.collectEvent(event_name, data);
     }
-
-    private appModule: App;
-    private tonConnectObserver: TonConnectObserver;
-    private documentObserver: DocumentObserver;
 }
