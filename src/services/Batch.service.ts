@@ -1,4 +1,4 @@
-import { BATCH_KEY } from "../constants";
+import {BATCH_KEY, Events} from "../constants";
 import { App } from "../app";
 import { BatchStorage } from "../repositories/BatchStorage";
 
@@ -28,18 +28,28 @@ export class BatchService {
     }
 
     public collect(event_name: string, requestBody?: Record<string, any>) {
-        let [data, errorMessage] = this.storage.getBatch();
-        if (errorMessage !== null) {
-            console.log(errorMessage);
-            return;
+        if (event_name === Events.HIDE) {
+            const localStorage = this.storage.getLocalStorage();
+            localStorage.setItem(this.BATCH_KEY, JSON.stringify([
+                ...JSON.parse(localStorage.getItem(this.BATCH_KEY)),
+                {
+                    event_name,
+                    ...requestBody,
+                }
+            ]),
+            )
         }
 
-        data.push({
-            event_name,
-            ...requestBody,
-        });
+        this.storage.getBatch((result: string) => {
+            const data: Record<string, any> = JSON.parse(result);
 
-        this.storage.setItem(data);
+            data.push({
+                event_name,
+                ...requestBody,
+            });
+
+            this.storage.setItem(data);
+        });
     }
 
     private startBatching() {
@@ -49,22 +59,18 @@ export class BatchService {
     }
 
     private processQueue() {
-        const [data, errorMessage]: [Record<string, any>[], string | null] = this.storage.getBatch();
+        this.storage.getBatch((result: string) => {
+            if (JSON.parse(result).length === 0) {
+                return;
+            }
 
-        if (errorMessage !== null) {
-            console.log(errorMessage);
-            return;
-        }
-
-        if (data.length === 0) {
-            return;
-        }
-
-        this.sendBatch(data);
+            this.sendBatch(JSON.parse(result));
+        });
     }
 
     private sendBatch(batch: Record<string, any>[]) {
         this.storage.setItem([]);
+        console.log(batch);
         this.appModule.recordEvents(batch).catch((err) => {
             console.log(err);
             this.storage.setItem(batch);

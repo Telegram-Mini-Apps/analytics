@@ -15,46 +15,34 @@ export class BatchStorage {
             this.localStorage.setItem(this.key, JSON.stringify([]));
         }
 
+        this.getBatch()
+}
+
+    public getBatch(callback?: (result: string) => void) {
         this.cloudStorage.getItem(this.key, (error: string | null, result: string) => {
             if (error !== null) {
                 console.log(error);
                 return;
             }
 
-            if (result === ''){
+            if (!result){
                 this.cloudStorage.setItem(this.key, JSON.stringify([]));
             }
 
             if (JSON.parse(result).length < JSON.parse(this.localStorage.getItem(this.key)).length) {
                 this.cloudStorage.setItem(this.key, this.localStorage.getItem(this.key));
             }
+
+            callback(result);
         });
     }
 
-    public getBatch(): [Record<string, any>[], string | null] {
-        let item: Record<string, any>[];
-        let errorMessage: string | null;
-
-        this.cloudStorage.getItem(this.key, (error: string | null, result: string) => {
-            if (error !== null) {
-                errorMessage = error;
-                return;
-            }
-
-            if (JSON.parse(result).length === JSON.parse(window.localStorage.getItem(this.key)).length){
-                if (JSON.parse(result).length === 0) {
-                    item = [];
-                } else {
-                    item = JSON.parse(result);
-                }
-            }
-        });
-
-        return [item, errorMessage];
+    public getLocalStorage() {
+        return this.localStorage;
     }
 
     public setItem(value: any) {
-        this.localStorage.setItem(this.key, value);
-        this.cloudStorage.setItem(this.key, value);
+        this.localStorage.setItem(this.key, JSON.stringify(value));
+        this.cloudStorage.setItem(this.key, JSON.stringify(value));
     }
 }
