@@ -29,6 +29,10 @@ export class BatchStorage {
                 this.cloudStorage.setItem(this.key, JSON.stringify([]));
             }
 
+            if (JSON.parse(this.localStorage.getItem(this.key)) === null) {
+                this.localStorage.setItem(this.key, JSON.stringify([]));
+            }
+
             if (JSON.parse(result).length < JSON.parse(this.localStorage.getItem(this.key)).length) {
                 this.cloudStorage.setItem(this.key, this.localStorage.getItem(this.key));
             }
