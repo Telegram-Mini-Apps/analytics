@@ -7,7 +7,7 @@ export class BatchService {
     private storage: BatchStorage;
     private intervalId: number | null = null;
 
-    private readonly batchInterval: number = 1000;
+    private readonly batchInterval: number = 1500;
     private readonly BATCH_KEY: string = BATCH_KEY;
 
     constructor(appModule: App) {
@@ -40,7 +40,7 @@ export class BatchService {
             )
         }
 
-        this.storage.getBatch((result: string) => {
+        this.storage.getBatch(async (result: string) => {
             const data: Record<string, any> = JSON.parse(result);
 
             data.push({

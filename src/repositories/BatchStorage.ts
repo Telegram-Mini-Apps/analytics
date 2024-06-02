@@ -11,10 +11,6 @@ export class BatchStorage {
         this.localStorage = window.localStorage;
         this.key = key;
 
-        if (this.localStorage.getItem(this.key) === null) {
-            this.localStorage.setItem(this.key, JSON.stringify([]));
-        }
-
         this.getBatch()
 }
 
@@ -33,7 +29,8 @@ export class BatchStorage {
                 this.localStorage.setItem(this.key, JSON.stringify([]));
             }
 
-            if (JSON.parse(result).length < JSON.parse(this.localStorage.getItem(this.key)).length) {
+            if (JSON.parse(result).length !== JSON.parse(this.localStorage.getItem(this.key)).length) {
+                result = this.localStorage.getItem(this.key);
                 this.cloudStorage.setItem(this.key, this.localStorage.getItem(this.key));
             }
 
