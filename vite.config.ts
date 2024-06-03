@@ -15,11 +15,15 @@ export default defineConfig({
         }),
     ],
     build: {
+        emptyOutDir: true,
         minify: 'terser',
         lib: {
             name: 'telegramAnalytics',
             formats: ['iife'],
             entry: 'src/index.ts',
+            fileName(format) {
+                return 'index.js';
+            }
         }
     }
 });
