@@ -28,7 +28,7 @@ export class App {
         this.analyticsController.init();
         this.batchService.init();
 
-        await this.networkController.recordEvent(Events.INIT);
+        this.collectEvent(Events.INIT);
     }
 
     public assembleEventSession() {
@@ -49,11 +49,12 @@ export class App {
         return this.networkController.recordEvents(data);
     }
 
-    public collectEvent(event_name: string, requestBody?: Record<string, any>){
+    public collectEvent(event_name: string, requestBody?: Record<string, any>, keepalive: boolean = false){
         this.batchService.collect(event_name, {
             ...requestBody,
             ...this.assembleEventSession(),
-        })
+        },
+        keepalive)
     }
 
     public getApiToken() {

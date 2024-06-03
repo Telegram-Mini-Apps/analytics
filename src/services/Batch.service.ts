@@ -1,4 +1,4 @@
-import {BATCH_KEY, Events} from "../constants";
+import {BATCH_KEY} from "../constants";
 import { App } from "../app";
 import { BatchStorage } from "../repositories/BatchStorage";
 
@@ -27,20 +27,12 @@ export class BatchService {
         }
     }
 
-    public collect(event_name: string, requestBody?: Record<string, any>) {
-        if (event_name === Events.HIDE) {
-            const localStorage = this.storage.getLocalStorage();
-            localStorage.setItem(this.BATCH_KEY, JSON.stringify([
-                ...JSON.parse(localStorage.getItem(this.BATCH_KEY)),
-                {
-                    event_name,
-                    ...requestBody,
-                }
-            ]),
-            )
-        }
-
-        this.storage.getBatch(async (result: string) => {
+    public collect(event_name: string, requestBody?: Record<string, any>, keepalive: boolean = false) {
+        this.storage.getBatch(
+            event_name,
+            requestBody,
+            keepalive,
+            (result: string) => {
             const data: Record<string, any> = JSON.parse(result);
 
             data.push({
@@ -59,7 +51,7 @@ export class BatchService {
     }
 
     private processQueue() {
-        this.storage.getBatch((result: string) => {
+        this.storage.getBatch(undefined, undefined, false, (result: string) => {
             if (JSON.parse(result).length === 0) {
                 return;
             }
@@ -69,9 +61,11 @@ export class BatchService {
     }
 
     private sendBatch(batch: Record<string, any>[]) {
+        this.stopBatching();
         this.storage.setItem([]);
-        console.log(batch);
-        this.appModule.recordEvents(batch).catch((err) => {
+        this.appModule.recordEvents(batch).then(()=> {
+            this.startBatching();
+        }, (err) => {
             console.log(err);
             this.storage.setItem(batch);
         });

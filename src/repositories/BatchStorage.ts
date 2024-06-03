@@ -14,7 +14,23 @@ export class BatchStorage {
         this.getBatch()
 }
 
-    public getBatch(callback?: (result: string) => void) {
+    public getBatch(
+        event_name?: string,
+        requestBody?: Record<string, any>,
+        keepalive: boolean = false,
+        callback?: (result: string) => void
+    ) {
+        if (keepalive){
+            if (event_name) {
+                this.setItem([
+                    ...JSON.parse(this.localStorage.getItem(this.key)),
+                    {
+                    event_name,
+                    ...requestBody,
+                }]);
+            }
+        }
+
         this.cloudStorage.getItem(this.key, (error: string | null, result: string) => {
             if (error !== null) {
                 console.log(error);
@@ -35,11 +51,11 @@ export class BatchStorage {
             }
 
             callback(result);
-        });
-    }
 
-    public getLocalStorage() {
-        return this.localStorage;
+            if (JSON.parse(result).length !== JSON.parse(this.localStorage.getItem(this.key)).length) {
+                this.cloudStorage.setItem(this.key, this.localStorage.getItem(this.key));
+            }
+        });
     }
 
     public setItem(value: any) {

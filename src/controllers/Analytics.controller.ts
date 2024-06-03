@@ -23,7 +23,7 @@ export class AnalyticsController {
         this.appModule.recordEvent(event_name, data).catch(e => console.error(e));
     }
 
-    public collectEvent(event_name: string, data?: Record<string, any>) {
-        this.appModule.collectEvent(event_name, data);
+    public collectEvent(event_name: string, data?: Record<string, any>, keepalive: boolean = false) {
+        this.appModule.collectEvent(event_name, data, keepalive);
     }
 }
