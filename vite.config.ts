@@ -1,19 +1,25 @@
-import { defineConfig } from 'vite';
-import obfuscator from 'rollup-plugin-obfuscator';
+import {defineConfig} from 'vite';
+import obfuscator from 'vite-plugin-javascript-obfuscator';
 
 export default defineConfig({
-  plugins: [
-    obfuscator(),
-  ],
-  build: {
-    minify: 'terser',
-    rollupOptions: {
-      input: 'src/index.ts',
-      output: {
-        dir: 'dist',
-        format: 'iife',
-        name: 'telegramAnalytics',
-      },
+    plugins: [
+        obfuscator({
+            options: {
+                compact: true,
+                controlFlowFlattening: true,
+                deadCodeInjection: true,
+                debugProtection: true,
+                // debugProtectionInterval: true, fixme
+                disableConsoleOutput: true,
+            },
+        }),
+    ],
+    build: {
+        minify: 'terser',
+        lib: {
+            name: 'telegramAnalytics',
+            formats: ['iife'],
+            entry: 'src/index.ts',
+        }
     }
-  }
 });
