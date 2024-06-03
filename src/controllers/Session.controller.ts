@@ -1,3 +1,4 @@
+import { retrieveLaunchParams } from '@tma.js/sdk';
 import { WebAppUser } from '@twa-dev/types'
 import { App } from '../app'
 import { Errors, throwError } from '../errors'
@@ -18,15 +19,27 @@ export class SessionController {
     }
 
     public init() {
-        this.userData = window?.Telegram?.WebApp?.initDataUnsafe?.user;
-        if (!this.userData) {
+        const lp = retrieveLaunchParams();
+        const initData = lp.initData;
+        const user = lp.initData?.user;
+        if (!user) {
             throwError(Errors.USER_DATA_IS_NOT_PROVIDED);
         }
 
-        this.userId = this.userData.id;
-        this.userLocale = this.userData?.language_code;
-        this.webAppStartParam = window?.Telegram?.WebApp?.initDataUnsafe?.start_param;
-        this.platform = window?.Telegram?.WebApp?.platform;
+        this.userData = {
+            id: user.id,
+            is_premium: user.isPremium,
+            first_name: user.firstName,
+            is_bot: user.isBot,
+            last_name: user.lastName,
+            language_code: user.languageCode,
+            photo_url: user.photoUrl,
+            username: user.username,
+        };
+        this.userId = user.id;
+        this.userLocale = user.languageCode;
+        this.webAppStartParam = initData.startParam;
+        this.platform = lp.platform;
         this.sessionId = generateUUID(String(this.getUserId()));
     }
 
