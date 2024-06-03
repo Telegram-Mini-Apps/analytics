@@ -12,20 +12,18 @@
   "author": "Cameron Nokes",
   "license": "MIT",
   "devDependencies": {
+    "terser": "^5.31.0",
     "typescript": "^5.4.5",
     "vite": "^5.2.12"
   },
   "dependencies": {
-    "@rollup/plugin-typescript": "^11.1.6",
     "@tma.js/sdk": "^2.4.0",
     "@tonconnect/ui": "2.0.3-beta.4",
     "@twa-dev/types": "^7.0.0",
     "@types/es6-promise": "^3.3.0",
     "http-server": "14.1.1",
     "javascript-obfuscator": "^4.1.0",
-    "rollup": "4.17.2",
-    "rollup-plugin-obfuscator": "^1.1.0",
-    "rollup-plugin-terser": "^7.0.2"
+    "rollup-plugin-obfuscator": "^1.1.0"
   },
   "resolutions": {
     "@types/node": "18.11.9"
