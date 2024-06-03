@@ -1,15 +1,12 @@
 import { defineConfig } from 'vite';
-import typescript from '@rollup/plugin-typescript';
-import { terser } from 'rollup-plugin-terser';
 import obfuscator from 'rollup-plugin-obfuscator';
 
 export default defineConfig({
   plugins: [
-    typescript(),
-    terser(),
     obfuscator(),
   ],
   build: {
+    minify: 'terser',
     rollupOptions: {
       input: 'src/index.ts',
       output: {
