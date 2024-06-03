@@ -6,8 +6,8 @@ import obfuscator from 'rollup-plugin-obfuscator';
 export default defineConfig({
   plugins: [
     typescript(),
-    obfuscator(),
     terser(),
+    obfuscator(),
   ],
   build: {
     rollupOptions: {
