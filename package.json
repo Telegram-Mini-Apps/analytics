@@ -6,7 +6,8 @@
   "scripts": {
     "build": "vite build",
     "watch": "vite --watch",
-    "serve": "http-server -p 8080 ./dist"
+    "serve": "http-server -p 8080 ./dist",
+    "typecheck": "tsc --noEmit"
   },
   "author": "Cameron Nokes",
   "license": "MIT",
