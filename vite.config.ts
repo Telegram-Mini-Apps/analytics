@@ -8,9 +8,9 @@ export default defineConfig({
                 compact: true,
                 controlFlowFlattening: true,
                 deadCodeInjection: true,
-                debugProtection: true,
+                // debugProtection: true,
                 // debugProtectionInterval: true, fixme
-                disableConsoleOutput: true,
+                // disableConsoleOutput: true,
             },
         }),
     ],

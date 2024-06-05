@@ -17,7 +17,6 @@ export class BatchService {
     }
 
     public init() {
-        this.processQueue();
     }
 
     public stopBatching() {
@@ -33,15 +32,24 @@ export class BatchService {
             requestBody,
             keepalive,
             (result: string) => {
-            const data: Record<string, any> = JSON.parse(result);
+                this.stopBatching();
+                const data: Record<string, any> = JSON.parse(result);
 
-            data.push({
-                event_name,
-                ...requestBody,
-            });
+                data.push({
+                    event_name,
+                    ...requestBody,
+                });
 
-            this.storage.setItem(data);
-        });
+                this.storage.setItem(data,(error: null | string) => {
+                    if (!error) {
+                        this.startBatching();
+                    } else{
+                        console.log(error);
+                        this.startBatching();
+                    }
+                });
+            },
+        );
     }
 
     private startBatching() {
@@ -63,11 +71,29 @@ export class BatchService {
     private sendBatch(batch: Record<string, any>[]) {
         this.stopBatching();
         this.storage.setItem([]);
-        this.appModule.recordEvents(batch).then(()=> {
-            this.startBatching();
-        }, (err) => {
-            console.log(err);
-            this.storage.setItem(batch);
+        this.appModule.recordEvents(batch).then((res: Response)=> {
+            if (res.ok) {
+                this.startBatching();
+            } else {
+                this.storage.setItem(batch, (error: null | string) => {
+                    if (error === null) {
+                        this.startBatching();
+                    } else {
+                        console.log(error);
+                        this.startBatching();
+                    }
+                });
+            }
+        }, (error) => {
+            console.log(error);
+            this.storage.setItem(batch, (error: null | string) => {
+                if (error === null) {
+                    this.startBatching();
+                } else {
+                    console.log(error);
+                    this.startBatching();
+                }
+            });
         });
     }
 }

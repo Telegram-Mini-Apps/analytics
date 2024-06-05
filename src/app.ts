@@ -28,7 +28,7 @@ export class App {
         this.analyticsController.init();
         this.batchService.init();
 
-        this.collectEvent(Events.INIT);
+        await this.recordEvent(Events.INIT);
     }
 
     public assembleEventSession() {

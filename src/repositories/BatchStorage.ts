@@ -10,9 +10,8 @@ export class BatchStorage {
         this.cloudStorage = window?.Telegram?.WebApp.CloudStorage;
         this.localStorage = window.localStorage;
         this.key = key;
-
         this.getBatch()
-}
+    }
 
     public getBatch(
         event_name?: string,
@@ -25,9 +24,9 @@ export class BatchStorage {
                 this.setItem([
                     ...JSON.parse(this.localStorage.getItem(this.key)),
                     {
-                    event_name,
-                    ...requestBody,
-                }]);
+                        event_name,
+                        ...requestBody,
+                    }]);
             }
         }
 
@@ -41,25 +40,20 @@ export class BatchStorage {
                 this.cloudStorage.setItem(this.key, JSON.stringify([]));
             }
 
-            if (JSON.parse(this.localStorage.getItem(this.key)) === null) {
-                this.localStorage.setItem(this.key, JSON.stringify([]));
-            }
+            result = JSON.stringify(
+                [...JSON.parse(result), ...JSON.parse(this.localStorage.getItem(this.key))]
+                    .filter((obj, idx, arr) =>
+                        arr.findIndex(t => JSON.stringify(t) === JSON.stringify(obj)) === idx));
 
-            if (JSON.parse(result).length !== JSON.parse(this.localStorage.getItem(this.key)).length) {
-                result = this.localStorage.getItem(this.key);
-                this.cloudStorage.setItem(this.key, this.localStorage.getItem(this.key));
-            }
+            this.localStorage.setItem(this.key, result);
 
             callback(result);
-
-            if (JSON.parse(result).length !== JSON.parse(this.localStorage.getItem(this.key)).length) {
-                this.cloudStorage.setItem(this.key, this.localStorage.getItem(this.key));
-            }
         });
     }
 
-    public setItem(value: any) {
+    public setItem(value: any, callback?: (error: null | string) => void) {
+        this.localStorage.removeItem(this.key);
         this.localStorage.setItem(this.key, JSON.stringify(value));
-        this.cloudStorage.setItem(this.key, JSON.stringify(value));
+        this.cloudStorage.setItem(this.key, JSON.stringify(value), callback);
     }
 }
