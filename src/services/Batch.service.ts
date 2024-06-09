@@ -1,4 +1,4 @@
-import {BATCH_KEY} from "../constants";
+import { BATCH_KEY } from "../constants";
 import { App } from "../app";
 import { BatchStorage } from "../repositories/BatchStorage";
 
@@ -13,7 +13,6 @@ export class BatchService {
     constructor(appModule: App) {
         this.storage = new BatchStorage(this.BATCH_KEY);
         this.appModule = appModule;
-        this.startBatching();
     }
 
     public init() {
@@ -26,74 +25,36 @@ export class BatchService {
         }
     }
 
-    public collect(event_name: string, requestBody?: Record<string, any>, keepalive: boolean = false) {
-        this.storage.getBatch(
-            event_name,
-            requestBody,
-            keepalive,
-            (result: string) => {
-                this.stopBatching();
-                const data: Record<string, any> = JSON.parse(result);
-
-                data.push({
-                    event_name,
-                    ...requestBody,
-                });
-
-                this.storage.setItem(data,(error: null | string) => {
-                    if (!error) {
-                        this.startBatching();
-                    } else{
-                        console.log(error);
-                        this.startBatching();
-                    }
-                });
-            },
-        );
+    public collect(event_name: string, requestBody?: Record<string, any>) {
+        this.storage.addToStorage(event_name, requestBody);
     }
 
-    private startBatching() {
+    public startBatching() {
         if (this.intervalId === null) {
             this.intervalId = window.setInterval(() => this.processQueue(), this.batchInterval);
         }
     }
 
     private processQueue() {
-        this.storage.getBatch(undefined, undefined, false, (result: string) => {
-            if (JSON.parse(result).length === 0) {
-                return;
-            }
+        const data: Record<string, any>[] = this.storage.getBatch();
 
-            this.sendBatch(JSON.parse(result));
-        });
+        if (data.length !== 0) {
+            this.sendBatch(data);
+        }
     }
 
     private sendBatch(batch: Record<string, any>[]) {
         this.stopBatching();
         this.storage.setItem([]);
         this.appModule.recordEvents(batch).then((res: Response)=> {
-            if (res.ok) {
-                this.startBatching();
-            } else {
-                this.storage.setItem(batch, (error: null | string) => {
-                    if (error === null) {
-                        this.startBatching();
-                    } else {
-                        console.log(error);
-                        this.startBatching();
-                    }
-                });
+            if (!res.ok) {
+                this.storage.setItem([...this.storage.getBatch(), ...batch]);
             }
+            this.startBatching();
         }, (error) => {
             console.log(error);
-            this.storage.setItem(batch, (error: null | string) => {
-                if (error === null) {
-                    this.startBatching();
-                } else {
-                    console.log(error);
-                    this.startBatching();
-                }
-            });
+            this.storage.setItem([...this.storage.getBatch(), ...batch]);
+            this.startBatching();
         });
     }
 }

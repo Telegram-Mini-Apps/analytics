@@ -1,6 +1,6 @@
 {
   "name": "tganalytics-staging",
-  "version": "0.0.2-staging",
+  "version": "0.0.5-staging",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {

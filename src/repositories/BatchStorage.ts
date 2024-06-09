@@ -1,59 +1,53 @@
-import { CloudStorage } from "@twa-dev/types";
-
 export class BatchStorage {
-    private cloudStorage: CloudStorage;
+    private sessionStorage: Storage;
     private localStorage: Storage;
 
     private readonly key: string;
 
     constructor(key: string) {
-        this.cloudStorage = window?.Telegram?.WebApp.CloudStorage;
+        this.sessionStorage = window.sessionStorage;
         this.localStorage = window.localStorage;
+
+        navigator.storage.persist();
+
         this.key = key;
-        this.getBatch()
+
+        const savedData: string | null = this.localStorage.getItem(this.key);
+        if (savedData === null) {
+            this.setItem([]);
+        } else {
+            this.setItem(JSON.parse(savedData));
+        }
     }
 
-    public getBatch(
-        event_name?: string,
-        requestBody?: Record<string, any>,
-        keepalive: boolean = false,
-        callback?: (result: string) => void
-    ) {
-        if (keepalive){
-            if (event_name) {
-                this.setItem([
-                    ...JSON.parse(this.localStorage.getItem(this.key)),
-                    {
-                        event_name,
-                        ...requestBody,
-                    }]);
-            }
+    public getBatch() {
+        if ((this.sessionStorage.getItem(this.key) === null) && (this.localStorage.getItem(this.key) === null)) {
+            this.setItem([]);
+        } else {
+            this.setItem(JSON.parse(this.localStorage.getItem(this.key)));
         }
 
-        this.cloudStorage.getItem(this.key, (error: string | null, result: string) => {
-            if (error !== null) {
-                console.log(error);
-                return;
-            }
-
-            if (!result){
-                this.cloudStorage.setItem(this.key, JSON.stringify([]));
-            }
-
-            result = JSON.stringify(
-                [...JSON.parse(result), ...JSON.parse(this.localStorage.getItem(this.key))]
-                    .filter((obj, idx, arr) =>
-                        arr.findIndex(t => JSON.stringify(t) === JSON.stringify(obj)) === idx));
-
-            this.localStorage.setItem(this.key, result);
-
-            callback(result);
-        });
+        this.setItem(
+            [...JSON.parse(this.sessionStorage.getItem(this.key)), ...JSON.parse(this.localStorage.getItem(this.key))]
+                .filter((obj, idx, arr) =>
+                    arr.findIndex(t => JSON.stringify(t) === JSON.stringify(obj)) === idx));
+        return JSON.parse(this.sessionStorage.getItem(this.key));
     }
 
-    public setItem(value: any, callback?: (error: null | string) => void) {
-        this.localStorage.removeItem(this.key);
+    public addToStorage(event_name: string, requestBody?: Record<string, any>) {
+        const data: Record<string, any>[] = this.getBatch();
+
+        data.push({
+            event_name,
+            ...requestBody,
+        });
+
+        this.setItem(data);
+    }
+
+
+    public setItem(value: any) {
         this.localStorage.setItem(this.key, JSON.stringify(value));
-        this.cloudStorage.setItem(this.key, JSON.stringify(value), callback);
+        this.sessionStorage.setItem(this.key, JSON.stringify(value));
     }
 }
