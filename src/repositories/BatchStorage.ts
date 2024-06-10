@@ -13,6 +13,7 @@ export class BatchStorage {
         this.key = key;
 
         const savedData: string | null = this.localStorage.getItem(this.key);
+
         if (savedData === null) {
             this.setItem([]);
         } else {
@@ -20,7 +21,7 @@ export class BatchStorage {
         }
     }
 
-    public getBatch() {
+    public getBatch(): Record<string, any>[] {
         if ((this.sessionStorage.getItem(this.key) === null) && (this.localStorage.getItem(this.key) === null)) {
             this.setItem([]);
         } else {
