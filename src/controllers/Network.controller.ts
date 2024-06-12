@@ -3,11 +3,31 @@ import { BACKEND_URL } from '../constants'
 import { Errors, throwError } from '../errors'
 
 export class NetworkController {
+    private appModule: App;
+
+    private readonly BACKEND_URL: string = BACKEND_URL;
+
     constructor(app: App) {
         this.appModule = app;
+
+        if (!this.appModule.getApiToken()) {
+            throwError(Errors.TOKEN_IS_NOT_PROVIDED);
+        }
     }
 
-    public init() {
+    public init() {}
+
+    public async recordEvents(
+        data: Record<string, any>[],
+    ) {
+        return await fetch(this.BACKEND_URL + 'events',{
+            method: 'POST',
+            headers: {
+                "TGA-Auth-Token": this.appModule.getApiToken(),
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        })
     }
 
     public async recordEvent(
@@ -15,10 +35,6 @@ export class NetworkController {
         data?: Record<string, any>,
         attributes?: Record<string, any>,
     ) {
-        if (!this.appModule.getApiToken()) {
-            throwError(Errors.TOKEN_IS_NOT_PROVIDED);
-        }
-
         if (data?.custom_data) {
             if (!attributes) {
                 attributes = data.custom_data;
@@ -27,7 +43,7 @@ export class NetworkController {
             }
         }
 
-        await fetch(this.BACKEND_URL+'events',{
+        await fetch(this.BACKEND_URL + 'events',{
             method: 'POST',
             headers: {
                 "TGA-Auth-Token": this.appModule.getApiToken(),
@@ -37,19 +53,8 @@ export class NetworkController {
                 ...data,
                 event_name: event_name,
                 custom_data: attributes,
-                session_id: this.appModule.getSessionId(),
-                user_id: this.appModule.getUserId(),
-                app_name: this.appModule.getAppName(),
-                is_premium: this.appModule.getUserIsPremium(),
-                platform: this.appModule.getPlatform(),
-                locale: this.appModule.getUserLocale(),
-                start_param: this.appModule.getWebAppStartParam(),
-                client_timestamp: String(Date.now()),
+                ...this.appModule.assembleEventSession(),
             }),
         });
     }
-
-    private BACKEND_URL: string = BACKEND_URL;
-
-    private appModule: App;
 }
