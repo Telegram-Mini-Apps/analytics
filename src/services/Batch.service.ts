@@ -7,13 +7,13 @@ export class BatchService {
     private storage: BatchStorage;
     private backoff: number = 1;
     private intervalId: number | null = null;
-    private batchInterval: number = 1500;
+    private batchInterval: number = 2000;
 
     private readonly BATCH_KEY: string = BATCH_KEY;
 
     constructor(appModule: App) {
-        this.storage = new BatchStorage(this.BATCH_KEY);
         this.appModule = appModule;
+        this.storage = new BatchStorage(this.BATCH_KEY + '-' + this.appModule.getApiToken());
     }
 
     public init() {
@@ -56,9 +56,10 @@ export class BatchService {
             }
 
             if (String(res.status)[0] === '5') {
-                if (this.backoff <= 5){
+                if (this.backoff < 5){
                     this.backoff++;
-                    this.batchInterval = this.batchInterval * Math.exp(this.backoff);
+                    this.batchInterval = this.batchInterval * 2.71;
+                    console.log(this.batchInterval);
                     this.startBatching();
                 }
                 return;
