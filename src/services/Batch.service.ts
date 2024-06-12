@@ -17,10 +17,15 @@ export class BatchService {
     }
 
     public init() {
-        document.addEventListener('DOMContentLoaded', () => {
+        if (document.readyState !== 'loading') {
             this.appModule.collectEvent(Events.INIT);
             this.startBatching();
-        });
+        } else{
+            document.addEventListener('DOMContentLoaded', () => {
+                this.appModule.collectEvent(Events.INIT);
+                this.startBatching();
+            });
+        }
     }
 
     public stopBatching() {
@@ -66,7 +71,7 @@ export class BatchService {
             }
 
             this.backoff = 1;
-            this.batchInterval = 1500;
+            this.batchInterval = 2000;
             this.storage.setItem(this.storage.getBatch()
                 .filter(cachedEvent =>
                     !batch.some(event =>
