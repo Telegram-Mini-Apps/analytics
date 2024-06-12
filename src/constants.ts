@@ -1,4 +1,4 @@
-export const BACKEND_URL: string = 'https://tganalytics-test.space/';
+export const BACKEND_URL: string = 'https://tganalytics.xyz/';
 export const BATCH_KEY: string = 'TGA-Batch-Requests';
 
 export const enum Events {
