@@ -49,7 +49,7 @@ export class BatchService {
         const data: Record<string, any>[] = this.storage.getBatch();
 
         if ((data.length !== 0) && (window.navigator.onLine)) {
-            this.sendBatch(data);
+            this.sendBatch(data.slice(0,20));
         }
     }
 
