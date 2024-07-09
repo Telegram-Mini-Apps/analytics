@@ -18,7 +18,7 @@
     "vite-plugin-javascript-obfuscator": "^3.1.0"
   },
   "dependencies": {
-    "@tma.js/sdk": "^2.4.0",
+    "@telegram-apps/sdk": "^1.1.0",
     "@tonconnect/ui": "2.0.3-beta.4",
     "@twa-dev/types": "^7.0.0",
     "@types/es6-promise": "^3.3.0",
