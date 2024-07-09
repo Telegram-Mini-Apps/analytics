@@ -1,4 +1,4 @@
-import { retrieveLaunchParams } from '@tma.js/sdk';
+import { retrieveLaunchParams } from '@telegram-apps/sdk';
 import { WebAppUser } from '@twa-dev/types'
 import { App } from '../app'
 import { Errors, throwError } from '../errors'
