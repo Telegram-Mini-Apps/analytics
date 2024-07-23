@@ -14,7 +14,7 @@ export class BatchStorage {
 
         const savedData: string | null = this.localStorage.getItem(this.key);
 
-        if (savedData === null) {
+        if ([null, 'null'].includes(savedData)) {
             this.setItem([]);
         } else {
             this.setItem(JSON.parse(savedData));
@@ -22,7 +22,7 @@ export class BatchStorage {
     }
 
     public getBatch(): Record<string, any>[] {
-        if ((this.sessionStorage.getItem(this.key) === null) && (this.localStorage.getItem(this.key) === null)) {
+        if ([null, 'null'].includes(this.sessionStorage.getItem(this.key)) && [null, 'null'].includes(this.localStorage.getItem(this.key))) {
             this.setItem([]);
         } else {
             this.setItem(JSON.parse(this.localStorage.getItem(this.key)));

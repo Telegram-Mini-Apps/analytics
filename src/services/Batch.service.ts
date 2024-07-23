@@ -20,7 +20,7 @@ export class BatchService {
         if (document.readyState !== 'loading') {
             this.appModule.collectEvent(Events.INIT);
             this.startBatching();
-        } else{
+        } else {
             document.addEventListener('DOMContentLoaded', () => {
                 this.appModule.collectEvent(Events.INIT);
                 this.startBatching();
