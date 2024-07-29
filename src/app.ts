@@ -3,12 +3,14 @@ import { AnalyticsController } from './controllers/Analytics.controller'
 import { NetworkController } from './controllers/Network.controller'
 import { SessionController } from './controllers/Session.controller'
 import { BatchService } from "./services/Batch.service";
+import {HumanProofService} from "./services/HumanProof.service";
 
 export class App {
     private sessionController: SessionController;
     private networkController: NetworkController;
     private analyticsController: AnalyticsController;
     private batchService: BatchService;
+    private humanProofService: HumanProofService;
 
     private readonly apiToken: string;
     private readonly appName: string;
@@ -20,6 +22,7 @@ export class App {
         this.networkController = new NetworkController(this);
         this.analyticsController = new AnalyticsController(this);
         this.batchService = new BatchService(this);
+        this.humanProofService = new HumanProofService();
     }
 
     public async init() {
@@ -27,6 +30,7 @@ export class App {
         this.sessionController.init();
         this.analyticsController.init();
         this.batchService.init();
+        this.humanProofService.init();
     }
 
     public assembleEventSession() {

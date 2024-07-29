@@ -1,6 +1,6 @@
 {
-  "name": "@telegram-apps/analytics",
-  "version": "1.1.9",
+  "name": "tganalytics-wasmtest",
+  "version": "0.0.42",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
@@ -22,7 +22,10 @@
     "@tonconnect/ui": "2.0.3-beta.4",
     "@twa-dev/types": "^7.0.0",
     "@types/es6-promise": "^3.3.0",
-    "http-server": "14.1.1"
+    "http-server": "14.1.1",
+    "vite-plugin-wasm": "^3.3.0",
+    "vite-plugin-wasm-pack": "^0.1.12",
+    "wasm-human-check-sorawalker": "^0.1.0"
   },
   "resolutions": {
     "@types/node": "18.11.9"
