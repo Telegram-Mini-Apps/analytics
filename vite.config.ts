@@ -1,10 +1,11 @@
 import {defineConfig} from 'vite';
 import obfuscator from 'vite-plugin-javascript-obfuscator';
-import wasmPack from 'vite-plugin-wasm-pack';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
+import vitePluginWasmPack from "vite-plugin-wasm-pack";
 
 export default defineConfig({
     plugins: [
-        wasmPack('./src/wasm/human-proof/'),
+        vitePluginWasmPack('src/wasm/human-proof'),
         obfuscator({
             options: {
                 compact: true,
@@ -14,24 +15,29 @@ export default defineConfig({
                 // debugProtectionInterval: true, fixme
                 // disableConsoleOutput: true,
             },
-            exclude: [/workers/, /HumanProof.service.ts/, /wasm/]
         }),
+        viteStaticCopy({
+            targets: [{
+                src: 'src/workers',
+                dest: 'assets',
+            },
+            {
+                src: 'src/wasm/initWasmModule.js',
+                dest: 'assets/wasm',
+            }],
+        })
     ],
     build: {
         emptyOutDir: true,
         minify: 'terser',
-        terserOptions: {
-            mangle:{
-                keep_fnames: /^(HumanProofWorker|greet)$/,
-            }
-        },
         lib: {
             name: 'telegramAnalytics',
             formats: ['iife'],
             entry: 'src/index.ts',
             fileName(format) {
                 return 'index.js';
-            }
+            },
         },
-    }
+    },
+    publicDir: false,
 });

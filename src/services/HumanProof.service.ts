@@ -1,20 +1,34 @@
-import HumanProofWorker from "../workers/HumanProof.worker";
-import init, { greet } from "../wasm/human-proof/pkg"
+import {App} from "../app";
+import {BACKEND_URL} from "../constants";
+
 export class HumanProofService {
     worker: Worker;
 
-    init() {
-        const blob = new Blob(['self.onmessage = ', HumanProofWorker.toString()], { type: 'text/javascript' });
-        this.worker = new Worker(URL.createObjectURL(blob));
+    constructor(private readonly appModule: App) {}
 
-        this.worker.onmessage = function (event: MessageEvent<number>) {
-            console.log('Received result from worker:', event.data);
-        };
+    async init() {
+        await fetch(BACKEND_URL + 'HumanProof.worker.js').then(async r => {
+            this.worker = new Worker(URL.createObjectURL(await r.blob()));
 
-        init().then(()=>{
-            greet('bebe');
+            await fetch(BACKEND_URL + 'human-proof').then(async res => {
+                this.appModule.taskParams = await res.json();
+
+                this.worker.onmessage = (event: MessageEvent<Map<'x' | 'y', number>>) => {
+                    this.appModule.taskSolution = {
+                        x: event.data.get('x'),
+                        y: event.data.get('y'),
+                    };
+                };
+            });
         });
+    }
 
-        this.worker.postMessage(10);
+    solveTask() {
+        this.worker.postMessage({
+            args: {
+                a: this.appModule.taskParams.a,
+                b: this.appModule.taskParams.b,
+            }
+        });
     }
 }

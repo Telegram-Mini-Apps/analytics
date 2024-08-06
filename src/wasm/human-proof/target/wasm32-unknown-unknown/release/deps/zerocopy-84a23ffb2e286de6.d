@@ -1,0 +1,10 @@
+C:\Users\nikit\WebstormProjects\miniappanalytics\src\wasm\human-proof\target\wasm32-unknown-unknown\release\deps\libzerocopy-84a23ffb2e286de6.rmeta: C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\lib.rs C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\byteorder.rs C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\derive_util.rs C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\post_monomorphization_compile_fail_tests.rs
+
+C:\Users\nikit\WebstormProjects\miniappanalytics\src\wasm\human-proof\target\wasm32-unknown-unknown\release\deps\libzerocopy-84a23ffb2e286de6.rlib: C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\lib.rs C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\byteorder.rs C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\derive_util.rs C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\post_monomorphization_compile_fail_tests.rs
+
+C:\Users\nikit\WebstormProjects\miniappanalytics\src\wasm\human-proof\target\wasm32-unknown-unknown\release\deps\zerocopy-84a23ffb2e286de6.d: C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\lib.rs C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\byteorder.rs C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\derive_util.rs C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\post_monomorphization_compile_fail_tests.rs
+
+C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\lib.rs:
+C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\byteorder.rs:
+C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\derive_util.rs:
+C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\post_monomorphization_compile_fail_tests.rs:

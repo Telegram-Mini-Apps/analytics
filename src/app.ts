@@ -15,22 +15,34 @@ export class App {
     private readonly apiToken: string;
     private readonly appName: string;
 
+    public taskParams: {
+        a: number;
+        b: number;
+    };
+
+    public taskSolution: {
+        x: number;
+        y: number;
+    }
+
     constructor(apiToken: string, appName: string) {
         this.apiToken = apiToken;
         this.appName = appName;
+        this.humanProofService = new HumanProofService(this);
         this.sessionController = new SessionController(this);
         this.networkController = new NetworkController(this);
         this.analyticsController = new AnalyticsController(this);
         this.batchService = new BatchService(this);
-        this.humanProofService = new HumanProofService();
     }
 
     public async init() {
+        await this.humanProofService.init().then(() => {
+            this.solveTask();
+        });
         this.networkController.init();
         this.sessionController.init();
         this.analyticsController.init();
         this.batchService.init();
-        this.humanProofService.init();
     }
 
     public assembleEventSession() {
@@ -64,5 +76,9 @@ export class App {
 
     public getAppName() {
         return this.appName;
+    }
+
+    public solveTask() {
+        this.humanProofService.solveTask();
     }
 }

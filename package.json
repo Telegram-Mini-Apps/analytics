@@ -1,6 +1,6 @@
 {
   "name": "tganalytics-wasmtest",
-  "version": "0.0.42",
+  "version": "0.0.169",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
@@ -15,7 +15,8 @@
     "terser": "^5.31.0",
     "typescript": "^5.4.5",
     "vite": "^5.2.12",
-    "vite-plugin-javascript-obfuscator": "^3.1.0"
+    "vite-plugin-javascript-obfuscator": "^3.1.0",
+    "vite-plugin-static-copy": "^1.0.6"
   },
   "dependencies": {
     "@telegram-apps/sdk": "^1.1.0",
@@ -23,9 +24,7 @@
     "@twa-dev/types": "^7.0.0",
     "@types/es6-promise": "^3.3.0",
     "http-server": "14.1.1",
-    "vite-plugin-wasm": "^3.3.0",
-    "vite-plugin-wasm-pack": "^0.1.12",
-    "wasm-human-check-sorawalker": "^0.1.0"
+    "vite-plugin-wasm-pack": "^0.1.12"
   },
   "resolutions": {
     "@types/node": "18.11.9"

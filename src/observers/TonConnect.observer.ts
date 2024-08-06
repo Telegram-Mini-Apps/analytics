@@ -9,7 +9,7 @@ export class TonConnectObserver {
         Events.CUSTOM_EVENT,
         Events.WALLET_CONNECT_SUCCESS,
         Events.WALLET_CONNECT_ERROR,
-        Events.CONNECTION_RESTORING_STARTED,
+        // Events.CONNECTION_RESTORING_STARTED,
         Events.CONNECTION_RESTORING_SUCCESS,
         Events.CONNECTION_RESTORING_ERROR,
         Events.TRANSACTION_SENT_FOR_SIGNATURE,

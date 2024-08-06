@@ -5,10 +5,11 @@
     "skipLibCheck": true,
     "types": ["node"],
     "lib": [
-      "es2015",
+      "es2017",
       "es7",
       "es6",
       "dom",
+      "WebWorker",
     ],
   },
   "include": [

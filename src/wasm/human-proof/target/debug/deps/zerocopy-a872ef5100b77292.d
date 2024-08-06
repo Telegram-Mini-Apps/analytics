@@ -1,0 +1,10 @@
+C:\Users\nikit\WebstormProjects\miniappanalytics\src\wasm\human-proof\target\debug\deps\libzerocopy-a872ef5100b77292.rmeta: C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\lib.rs C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\byteorder.rs C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\derive_util.rs C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\post_monomorphization_compile_fail_tests.rs
+
+C:\Users\nikit\WebstormProjects\miniappanalytics\src\wasm\human-proof\target\debug\deps\libzerocopy-a872ef5100b77292.rlib: C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\lib.rs C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\byteorder.rs C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\derive_util.rs C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\post_monomorphization_compile_fail_tests.rs
+
+C:\Users\nikit\WebstormProjects\miniappanalytics\src\wasm\human-proof\target\debug\deps\zerocopy-a872ef5100b77292.d: C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\lib.rs C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\byteorder.rs C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\derive_util.rs C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\post_monomorphization_compile_fail_tests.rs
+
+C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\lib.rs:
+C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\byteorder.rs:
+C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\derive_util.rs:
+C:\Users\nikit\.cargo\registry\src\index.crates.io-6f17d22bba15001f\zerocopy-0.6.6\src\post_monomorphization_compile_fail_tests.rs:

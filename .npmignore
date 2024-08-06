@@ -1,1 +1,5 @@
 src/
+.idea
+vite.config.ts
+tsconfig.json
+declaration.d.ts

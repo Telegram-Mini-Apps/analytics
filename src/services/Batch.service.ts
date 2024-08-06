@@ -17,6 +17,21 @@ export class BatchService {
     }
 
     public init() {
+        let counter = 0;
+        const intervalId = setInterval(() => {
+            if (this.appModule.taskSolution !== undefined) {
+                this.initEvent();
+                clearInterval(intervalId);
+            } else {
+                this.appModule.solveTask();
+                if (++counter >= 3) {
+                    this.initEvent();
+                }
+            }
+        }, this.batchInterval);
+    }
+
+    private initEvent() {
         if (document.readyState !== 'loading') {
             this.appModule.collectEvent(Events.INIT);
             this.startBatching();

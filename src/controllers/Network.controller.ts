@@ -25,9 +25,21 @@ export class NetworkController {
             headers: {
                 "TGA-Auth-Token": this.appModule.getApiToken(),
                 "Content-Type": "application/json",
+                "TGA-Task-Solution": JSON.stringify(this.appModule.taskSolution),
+                "TGA-Task-Params": JSON.stringify(this.appModule.taskParams),
             },
             body: JSON.stringify(data),
-        })
+        }).then(async res => {
+            const data = await res.json();
+            this.appModule.taskParams = data.taskParams;
+            this.appModule.solveTask();
+            return res;
+        }, (async (res: Response) => {
+            const data = await res.json();
+            this.appModule.taskParams = data.taskParams;
+            this.appModule.solveTask();
+            return res;
+        }));
     }
 
     public async recordEvent(
@@ -48,13 +60,25 @@ export class NetworkController {
             headers: {
                 "TGA-Auth-Token": this.appModule.getApiToken(),
                 "Content-Type": "application/json",
+                "TGA-Task-Solution": JSON.stringify(this.appModule.taskSolution),
+                "TGA-Task-Params": JSON.stringify(this.appModule.taskParams),
             },
             body: JSON.stringify({
-                ...data,
-                event_name: event_name,
-                custom_data: attributes,
-                ...this.appModule.assembleEventSession(),
-            }),
-        });
+                    ...data,
+                    event_name: event_name,
+                    custom_data: attributes,
+                    ...this.appModule.assembleEventSession(),
+                }),
+        }).then(async res => {
+            const data = await res.json();
+            this.appModule.taskParams = data.taskParams;
+            this.appModule.solveTask();
+            return res;
+        }, (async (res: Response) => {
+            const data = await res.json();
+            this.appModule.taskParams = data.taskParams;
+            this.appModule.solveTask();
+            return res;
+        }));
     }
 }
