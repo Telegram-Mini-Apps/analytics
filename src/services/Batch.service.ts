@@ -16,6 +16,20 @@ export class BatchService {
         this.storage = new BatchStorage(this.BATCH_KEY + '-' + this.appModule.getApiToken());
     }
 
+    private initEvent() {
+        if (document.readyState === 'complete') {
+            this.appModule.collectEvent(Events.INIT);
+            this.startBatching();
+        } else {
+            document.onreadystatechange = () => {
+                if (document.readyState == "complete") {
+                    this.appModule.collectEvent(Events.INIT);
+                    this.startBatching();
+                }
+            }
+        }
+    }
+
     public init() {
         let counter = 0;
         const intervalId = setInterval(() => {
@@ -26,21 +40,10 @@ export class BatchService {
                 this.appModule.solveTask();
                 if (++counter >= 3) {
                     this.initEvent();
+                    clearInterval(intervalId);
                 }
             }
         }, this.batchInterval);
-    }
-
-    private initEvent() {
-        if (document.readyState !== 'loading') {
-            this.appModule.collectEvent(Events.INIT);
-            this.startBatching();
-        } else {
-            document.addEventListener('DOMContentLoaded', () => {
-                this.appModule.collectEvent(Events.INIT);
-                this.startBatching();
-            });
-        }
     }
 
     public stopBatching() {
