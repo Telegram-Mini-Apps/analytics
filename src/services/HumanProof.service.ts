@@ -23,6 +23,17 @@ export class HumanProofService {
         });
     }
 
+    public getNewArgs(data: string) {
+        try {
+            this.appModule.taskParams = JSON.parse(
+                this.appModule.decoder.decode(
+                    new Uint8Array(data.split(',').map((el) => parseInt(el)))
+                )
+            );
+            this.appModule.solveTask();
+        } catch (e) {}
+    }
+
     solveTask() {
         this.worker.postMessage({
             args: {

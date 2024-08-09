@@ -8,6 +8,7 @@ export class BatchService {
     private backoff: number = 1;
     private intervalId: number | null = null;
     private batchInterval: number = 2000;
+    private taskRetry: number = 0;
 
     private readonly BATCH_KEY: string = BATCH_KEY;
 
@@ -31,19 +32,14 @@ export class BatchService {
     }
 
     public init() {
-        let counter = 0;
         const intervalId = setInterval(() => {
             if (this.appModule.taskSolution !== undefined) {
                 this.initEvent();
                 clearInterval(intervalId);
             } else {
                 this.appModule.solveTask();
-                if (++counter >= 3) {
-                    this.initEvent();
-                    clearInterval(intervalId);
-                }
             }
-        }, this.batchInterval);
+        }, 1000);
     }
 
     public stopBatching() {
@@ -90,6 +86,33 @@ export class BatchService {
 
             this.backoff = 1;
             this.batchInterval = 2000;
+
+            if (String(res.status) === '203') {
+                this.taskRetry++;
+
+                this.appModule.taskSolution = undefined;
+
+                if (this.taskRetry > 3) {
+                    this.startBatching();
+
+                    return;
+                } else {
+                    this.appModule.solveTask();
+
+                    const intervalId = setInterval(() => {
+                        if (this.appModule.taskSolution !== undefined) {
+                            this.startBatching();
+                            clearInterval(intervalId);
+                        } else {
+                            this.appModule.solveTask();
+                        }
+                    }, 1000);
+
+                    return;
+                }
+            }
+
+            this.taskRetry = 0;
             this.storage.setItem(this.storage.getBatch()
                 .filter(cachedEvent =>
                     !batch.some(event =>

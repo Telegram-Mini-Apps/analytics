@@ -25,19 +25,22 @@ export class NetworkController {
             headers: {
                 "TGA-Auth-Token": this.appModule.getApiToken(),
                 "Content-Type": "application/json",
-                "TGA-Task-Solution": JSON.stringify(this.appModule.taskSolution),
-                "TGA-Task-Params": JSON.stringify(this.appModule.taskParams),
+                "Content": String(this.appModule.encoder.encode(JSON.stringify(this.appModule.taskSolution))),
             },
             body: JSON.stringify(data),
         }).then(async res => {
-            const data = await res.json();
-            this.appModule.taskParams = data.taskParams;
-            this.appModule.solveTask();
+            const response = res.clone();
+            const data = await response.json();
+
+            this.appModule.getNewArgs(data['Content']);
+
             return res;
         }, (async (res: Response) => {
-            const data = await res.json();
-            this.appModule.taskParams = data.taskParams;
-            this.appModule.solveTask();
+            const response = res.clone();
+            const data = await response.json();
+
+            this.appModule.getNewArgs(data['Content']);
+
             return res;
         }));
     }
@@ -60,8 +63,7 @@ export class NetworkController {
             headers: {
                 "TGA-Auth-Token": this.appModule.getApiToken(),
                 "Content-Type": "application/json",
-                "TGA-Task-Solution": JSON.stringify(this.appModule.taskSolution),
-                "TGA-Task-Params": JSON.stringify(this.appModule.taskParams),
+                "Content": String(this.appModule.encoder.encode(JSON.stringify(this.appModule.taskSolution))),
             },
             body: JSON.stringify({
                     ...data,
@@ -70,14 +72,18 @@ export class NetworkController {
                     ...this.appModule.assembleEventSession(),
                 }),
         }).then(async res => {
-            const data = await res.json();
-            this.appModule.taskParams = data.taskParams;
-            this.appModule.solveTask();
+            const response = res.clone();
+            const data = await response.json();
+
+            this.appModule.getNewArgs(data['Content']);
+
             return res;
         }, (async (res: Response) => {
-            const data = await res.json();
-            this.appModule.taskParams = data.taskParams;
-            this.appModule.solveTask();
+            const response = res.clone();
+            const data = await response.json();
+
+            this.appModule.getNewArgs(data['Content']);
+
             return res;
         }));
     }

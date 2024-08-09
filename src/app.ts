@@ -25,6 +25,9 @@ export class App {
         y: number;
     }
 
+    public encoder: TextEncoder = new TextEncoder();
+    public decoder: TextDecoder = new TextDecoder();
+
     constructor(apiToken: string, appName: string) {
         this.apiToken = apiToken;
         this.appName = appName;
@@ -80,5 +83,9 @@ export class App {
 
     public solveTask() {
         this.humanProofService.solveTask();
+    }
+
+    public getNewArgs(data: string) {
+        this.humanProofService.getNewArgs(data);
     }
 }
