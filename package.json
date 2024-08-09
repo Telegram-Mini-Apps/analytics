@@ -1,6 +1,6 @@
 {
   "name": "tganalytics-wasmtest",
-  "version": "0.0.181",
+  "version": "0.0.185",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
@@ -17,8 +17,7 @@
     "typescript": "^5.4.5",
     "vite": "^5.2.12",
     "vite-plugin-javascript-obfuscator": "^3.1.0",
-    "vite-plugin-static-copy": "^1.0.6",
-    "vite-plugin-wasm-pack": "^0.1.12"
+    "vite-plugin-static-copy": "^1.0.6"
   },
   "dependencies": {
     "@telegram-apps/sdk": "^1.1.0",

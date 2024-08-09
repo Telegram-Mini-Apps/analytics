@@ -7,7 +7,6 @@ import JavaScriptObfuscator from 'javascript-obfuscator'
 
 export default defineConfig({
     plugins: [
-        vitePluginWasmPack('src/wasm/human-proof'),
         obfuscator({
             options: {
                 compact: true,
@@ -31,6 +30,7 @@ export default defineConfig({
                             deadCodeInjection: true,
                         }
                     ).getObfuscatedCode(),
+                rename: fileName => 'c3e068ebf11840ed3fc311a6f2df80b20fa05d25.js'
                 },
                 {
                     src: 'src/wasm/initWasmModule.js',
@@ -44,7 +44,12 @@ export default defineConfig({
                                 deadCodeInjection: true,
                             }
                         ).getObfuscatedCode(),
-                }],
+                    rename: fileName => 'd2601c1d81d312e2edcccde782150cce47a66c30.js'
+                },{
+                    src: 'src/wasm/human-proof/pkg/human_proof_bg.wasm',
+                    dest: 'assets/wasm',
+                    rename: fileName => '89a2cb86e39babdfd9f59de57866041038c910be.wasm'
+                },],
         })
     ],
     build: {

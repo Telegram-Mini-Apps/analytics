@@ -33,7 +33,7 @@ impl EllipticCurve {
 }
 
 #[wasm_bindgen]
-pub fn solve_task(a: f64, b: f64) -> JsValue {
+pub fn e12f1e505654847829d9ae61aab7527dd0fd884(a: f64, b: f64) -> JsValue {
     let curve = EllipticCurve {
         a,
         b,

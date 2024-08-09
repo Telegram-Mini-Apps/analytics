@@ -1,11 +1,11 @@
-fetch('https://test.tganalytics.xyz/initWasmModule.js').then(async r => {
+fetch('https://test.tganalytics.xyz/d2601c1d81d312e2edcccde782150cce47a66c30').then(async r => {
     importScripts(URL.createObjectURL(await r.blob()));
 
-    wasm_init('https://test.tganalytics.xyz/human_proof_bg.wasm').then(()=>{
+    wasm_init('https://test.tganalytics.xyz/89a2cb86e39babdfd9f59de57866041038c910be').then(()=>{
         self.onmessage = function (event) {
-            const solution = solve_task(event.data.args.a, event.data.args.b);
-            console.log('worker solution',solution);
-            postMessage(solution);
+            const foo = e12f1e505654847829d9ae61aab7527dd0fd884(event.data.args.a, event.data.args.b);
+            console.log('worker solution',foo);
+            postMessage(foo);
         }
     });
 });

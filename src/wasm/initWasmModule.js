@@ -181,8 +181,8 @@ function getInt32Memory0() {
  * @param {number} b
  * @returns {any}
  */
-function solve_task(a, b) {
-    const ret = wasm.solve_task(a, b);
+function e12f1e505654847829d9ae61aab7527dd0fd884(a, b) {
+    const ret = wasm.e12f1e505654847829d9ae61aab7527dd0fd884(a, b);
     return takeObject(ret);
 }
 
