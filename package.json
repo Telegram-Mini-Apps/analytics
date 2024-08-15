@@ -1,6 +1,6 @@
 {
   "name": "tganalytics-wasmtest",
-  "version": "0.0.185",
+  "version": "0.0.187",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {

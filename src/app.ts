@@ -39,12 +39,12 @@ export class App {
     }
 
     public async init() {
+        this.analyticsController.init();
+        this.sessionController.init();
         await this.humanProofService.init().then(() => {
             this.solveTask();
         });
         this.networkController.init();
-        this.sessionController.init();
-        this.analyticsController.init();
         this.batchService.init();
     }
 

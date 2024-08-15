@@ -50,7 +50,13 @@ export class BatchService {
     }
 
     public collect(event_name: string, requestBody?: Record<string, any>) {
-        this.storage.addToStorage(event_name, requestBody);
+        if (document.readyState === 'complete') {
+            this.storage.addToStorage(event_name, requestBody);
+        } else {
+            document.addEventListener('load', () => {
+                this.storage.addToStorage(event_name, requestBody);
+            });
+        }
     }
 
     public startBatching() {
