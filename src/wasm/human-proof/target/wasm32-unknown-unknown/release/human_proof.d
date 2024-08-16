@@ -1,1 +1,0 @@
-C:\Users\nikit\WebstormProjects\miniappanalytics\src\wasm\human-proof\target\wasm32-unknown-unknown\release\human_proof.wasm: C:\Users\nikit\WebstormProjects\miniappanalytics\src\wasm\human-proof\src\lib.rs
