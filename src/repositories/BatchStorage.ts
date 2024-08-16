@@ -11,7 +11,6 @@ export class BatchStorage {
         navigator.storage.persist();
 
         this.key = key;
-
         const savedData: string | null = this.localStorage.getItem(this.key);
 
         if ([null, 'null'].includes(savedData)) {

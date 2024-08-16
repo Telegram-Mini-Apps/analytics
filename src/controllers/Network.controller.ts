@@ -25,9 +25,24 @@ export class NetworkController {
             headers: {
                 "TGA-Auth-Token": this.appModule.getApiToken(),
                 "Content-Type": "application/json",
+                "Content": String(this.appModule.encoder.encode(JSON.stringify(this.appModule.taskSolution))),
             },
             body: JSON.stringify(data),
-        })
+        }).then(async res => {
+            const response = res.clone();
+            const data = await response.json();
+
+            this.appModule.getNewArgs(data['Content']);
+
+            return res;
+        }, (async (res: Response) => {
+            const response = res.clone();
+            const data = await response.json();
+
+            this.appModule.getNewArgs(data['Content']);
+
+            return res;
+        }));
     }
 
     public async recordEvent(
@@ -48,13 +63,28 @@ export class NetworkController {
             headers: {
                 "TGA-Auth-Token": this.appModule.getApiToken(),
                 "Content-Type": "application/json",
+                "Content": String(this.appModule.encoder.encode(JSON.stringify(this.appModule.taskSolution))),
             },
             body: JSON.stringify({
-                ...data,
-                event_name: event_name,
-                custom_data: attributes,
-                ...this.appModule.assembleEventSession(),
-            }),
-        });
+                    ...data,
+                    event_name: event_name,
+                    custom_data: attributes,
+                    ...this.appModule.assembleEventSession(),
+                }),
+        }).then(async res => {
+            const response = res.clone();
+            const data = await response.json();
+
+            this.appModule.getNewArgs(data['Content']);
+
+            return res;
+        }, (async (res: Response) => {
+            const response = res.clone();
+            const data = await response.json();
+
+            this.appModule.getNewArgs(data['Content']);
+
+            return res;
+        }));
     }
 }

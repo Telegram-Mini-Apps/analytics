@@ -1,6 +1,6 @@
 {
   "name": "@telegram-apps/analytics",
-  "version": "1.1.9",
+  "version": "1.2.0",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
@@ -12,10 +12,12 @@
   "author": "Cameron Nokes",
   "license": "MIT",
   "devDependencies": {
+    "javascript-obfuscator": "^4.1.1",
     "terser": "^5.31.0",
     "typescript": "^5.4.5",
     "vite": "^5.2.12",
-    "vite-plugin-javascript-obfuscator": "^3.1.0"
+    "vite-plugin-javascript-obfuscator": "^3.1.0",
+    "vite-plugin-static-copy": "^1.0.6"
   },
   "dependencies": {
     "@telegram-apps/sdk": "^1.1.0",

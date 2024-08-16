@@ -3,19 +3,35 @@ import { AnalyticsController } from './controllers/Analytics.controller'
 import { NetworkController } from './controllers/Network.controller'
 import { SessionController } from './controllers/Session.controller'
 import { BatchService } from "./services/Batch.service";
+import {HumanProofService} from "./services/HumanProof.service";
 
 export class App {
     private sessionController: SessionController;
     private networkController: NetworkController;
     private analyticsController: AnalyticsController;
     private batchService: BatchService;
+    private humanProofService: HumanProofService;
 
     private readonly apiToken: string;
     private readonly appName: string;
 
+    public taskParams: {
+        a: number;
+        b: number;
+    };
+
+    public taskSolution: {
+        x: number;
+        y: number;
+    }
+
+    public encoder: TextEncoder = new TextEncoder();
+    public decoder: TextDecoder = new TextDecoder();
+
     constructor(apiToken: string, appName: string) {
         this.apiToken = apiToken;
         this.appName = appName;
+        this.humanProofService = new HumanProofService(this);
         this.sessionController = new SessionController(this);
         this.networkController = new NetworkController(this);
         this.analyticsController = new AnalyticsController(this);
@@ -23,9 +39,12 @@ export class App {
     }
 
     public async init() {
-        this.networkController.init();
-        this.sessionController.init();
         this.analyticsController.init();
+        this.sessionController.init();
+        await this.humanProofService.init().then(() => {
+            this.solveTask();
+        });
+        this.networkController.init();
         this.batchService.init();
     }
 
@@ -60,5 +79,13 @@ export class App {
 
     public getAppName() {
         return this.appName;
+    }
+
+    public solveTask() {
+        this.humanProofService.solveTask();
+    }
+
+    public getNewArgs(data: string) {
+        this.humanProofService.getNewArgs(data);
     }
 }

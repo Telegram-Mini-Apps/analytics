@@ -8,7 +8,7 @@ export const enum Events {
     WALLET_CONNECT_STARTED = 'connection-started',
     WALLET_CONNECT_SUCCESS = 'connection-completed',
     WALLET_CONNECT_ERROR = 'connection-error',
-    // CONNECTION_RESTORING_STARTED = 'connection-restoring-started',
+    CONNECTION_RESTORING_STARTED = 'connection-restoring-started',
     CONNECTION_RESTORING_SUCCESS = 'connection-restoring-completed',
     CONNECTION_RESTORING_ERROR = 'connection-restoring-error',
     TRANSACTION_SENT_FOR_SIGNATURE = 'transaction-sent-for-signature',

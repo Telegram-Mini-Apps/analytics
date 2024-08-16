@@ -8,6 +8,7 @@ export class BatchService {
     private backoff: number = 1;
     private intervalId: number | null = null;
     private batchInterval: number = 2000;
+    private taskRetry: number = 0;
 
     private readonly BATCH_KEY: string = BATCH_KEY;
 
@@ -16,16 +17,29 @@ export class BatchService {
         this.storage = new BatchStorage(this.BATCH_KEY + '-' + this.appModule.getApiToken());
     }
 
-    public init() {
-        if (document.readyState !== 'loading') {
+    private initEvent() {
+        if (document.readyState === 'complete') {
             this.appModule.collectEvent(Events.INIT);
             this.startBatching();
         } else {
-            document.addEventListener('DOMContentLoaded', () => {
-                this.appModule.collectEvent(Events.INIT);
-                this.startBatching();
-            });
+            document.onreadystatechange = () => {
+                if (document.readyState == "complete") {
+                    this.appModule.collectEvent(Events.INIT);
+                    this.startBatching();
+                }
+            }
         }
+    }
+
+    public init() {
+        const intervalId = setInterval(() => {
+            if (this.appModule.taskSolution !== undefined) {
+                this.initEvent();
+                clearInterval(intervalId);
+            } else {
+                this.appModule.solveTask();
+            }
+        }, 1000);
     }
 
     public stopBatching() {
@@ -36,7 +50,13 @@ export class BatchService {
     }
 
     public collect(event_name: string, requestBody?: Record<string, any>) {
-        this.storage.addToStorage(event_name, requestBody);
+        if (document.readyState === 'complete') {
+            this.storage.addToStorage(event_name, requestBody);
+        } else {
+            document.addEventListener('load', () => {
+                this.storage.addToStorage(event_name, requestBody);
+            });
+        }
     }
 
     public startBatching() {
@@ -72,6 +92,33 @@ export class BatchService {
 
             this.backoff = 1;
             this.batchInterval = 2000;
+
+            if (String(res.status) === '203') {
+                this.taskRetry++;
+
+                this.appModule.taskSolution = undefined;
+
+                if (this.taskRetry > 3) {
+                    this.startBatching();
+
+                    return;
+                } else {
+                    this.appModule.solveTask();
+
+                    const intervalId = setInterval(() => {
+                        if (this.appModule.taskSolution !== undefined) {
+                            this.startBatching();
+                            clearInterval(intervalId);
+                        } else {
+                            this.appModule.solveTask();
+                        }
+                    }, 1000);
+
+                    return;
+                }
+            }
+
+            this.taskRetry = 0;
             this.storage.setItem(this.storage.getBatch()
                 .filter(cachedEvent =>
                     !batch.some(event =>
