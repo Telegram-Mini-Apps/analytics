@@ -1,10 +1,10 @@
 {
   "name": "@telegram-apps/analytics",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
-    "build": "vite build",
+    "build": "wasm-pack build ./src/wasm/human-proof --target web && vite build",
     "watch": "vite --watch",
     "serve": "http-server -p 8080 ./dist",
     "typecheck": "tsc --noEmit"
