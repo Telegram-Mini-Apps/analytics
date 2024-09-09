@@ -53,9 +53,17 @@ export class BatchService {
         if (document.readyState === 'complete') {
             this.storage.addToStorage(event_name, requestBody);
         } else {
-            document.addEventListener('load', () => {
+            const onLoad = () => {
                 this.storage.addToStorage(event_name, requestBody);
-            });
+            }
+
+            setTimeout(() => {
+                if (document.readyState === 'complete') {
+                    onLoad();
+                } else {
+                    window.addEventListener('load', onLoad)
+                }
+            }, 0);
         }
     }
 
