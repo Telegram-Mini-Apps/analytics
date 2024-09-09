@@ -84,6 +84,12 @@ export class BatchService {
     private sendBatch(batch: Record<string, any>[]) {
         this.stopBatching();
         this.appModule.recordEvents(batch).then((res: Response)=> {
+            if (String(res.status) === '429') {
+                this.startBatching();
+
+                return;
+            }
+
             if (String(res.status)[0] === '4') {
                 return;
             }
@@ -92,7 +98,6 @@ export class BatchService {
                 if (this.backoff < 5){
                     this.backoff++;
                     this.batchInterval = this.batchInterval * 2.71;
-                    console.log(this.batchInterval);
                     this.startBatching();
                 }
                 return;
