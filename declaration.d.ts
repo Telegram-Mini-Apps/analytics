@@ -269,7 +269,10 @@ declare global {
     interface Window {
         Telegram: Telegram,
         telegramAnalytics: {
-            init: ({ token: string, appName: string }) => void;
+            init: ({ token, appName }: {
+                token: string;
+                appName: string;
+            }) => void;
         };
     }
 }
