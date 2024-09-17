@@ -8,6 +8,7 @@ wasm-bindgen = "0.2"
 rand = "0.8"
 getrandom = { version = "0.2", features = ["js"] }
 serde-wasm-bindgen = "0.4"
+serde = { version = "1.0.204", features = ["derive"] }
 
 [lib]
 crate-type = ["cdylib"]

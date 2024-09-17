@@ -15,18 +15,8 @@ export class App {
     private readonly apiToken: string;
     private readonly appName: string;
 
-    public taskParams: {
-        a: number;
-        b: number;
-    };
-
-    public taskSolution: {
-        x: number;
-        y: number;
-    }
-
-    public encoder: TextEncoder = new TextEncoder();
-    public decoder: TextDecoder = new TextDecoder();
+    public taskParams: string;
+    public taskSolution: string;
 
     constructor(apiToken: string, appName: string) {
         this.apiToken = apiToken;
@@ -85,7 +75,7 @@ export class App {
         this.humanProofService.solveTask();
     }
 
-    public getNewArgs(data: string) {
-        this.humanProofService.getNewArgs(data);
+    public setNewArgs(data: string) {
+        this.humanProofService.setNewArgs(data);
     }
 }

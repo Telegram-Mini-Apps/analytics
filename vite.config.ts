@@ -24,15 +24,15 @@ export default defineConfig(({ mode }): UserConfig => {
                     targets: [{
                         src: 'src/workers/HumanProof.worker.js',
                         dest: 'assets/workers',
-                        transform: async (content: string, filename: string) =>
-                            JavaScriptObfuscator.obfuscate(
-                                (await minify(content)).code,
-                                {
-                                    compact: true,
-                                    controlFlowFlattening: true,
-                                    deadCodeInjection: true,
-                                }
-                            ).getObfuscatedCode(),
+                        // transform: async (content: string, filename: string) =>
+                        //     JavaScriptObfuscator.obfuscate(
+                        //         (await minify(content)).code,
+                        //         {
+                        //             compact: true,
+                        //             controlFlowFlattening: true,
+                        //             deadCodeInjection: true,
+                        //         }
+                        //     ).getObfuscatedCode(),
                         rename: fileName => 'c3e068ebf11840ed3fc311a6f2df80b20fa05d25.js'
                     },
                         {
