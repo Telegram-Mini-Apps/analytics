@@ -7,6 +7,17 @@ export class NetworkController {
 
     private readonly BACKEND_URL: string = BACKEND_URL;
 
+    private readonly responseToParams = async (res: Response)=> {
+        const response: Response = res.clone();
+        if ((String(response.status)[0] === '2') || (response.status === 429)) {
+            const data = await response.json();
+
+            this.appModule.setNewArgs(data['Content']);
+        }
+
+        return res;
+    };
+
     constructor(app: App) {
         this.appModule = app;
 
@@ -25,24 +36,10 @@ export class NetworkController {
             headers: {
                 "TGA-Auth-Token": this.appModule.getApiToken(),
                 "Content-Type": "application/json",
-                "Content": String(this.appModule.encoder.encode(JSON.stringify(this.appModule.taskSolution))),
+                "Content": this.appModule.taskSolution,
             },
             body: JSON.stringify(data),
-        }).then(async res => {
-            const response = res.clone();
-            const data = await response.json();
-
-            this.appModule.getNewArgs(data['Content']);
-
-            return res;
-        }, (async (res: Response) => {
-            const response = res.clone();
-            const data = await response.json();
-
-            this.appModule.getNewArgs(data['Content']);
-
-            return res;
-        }));
+        }).then(this.responseToParams, this.responseToParams);
     }
 
     public async recordEvent(
@@ -63,7 +60,7 @@ export class NetworkController {
             headers: {
                 "TGA-Auth-Token": this.appModule.getApiToken(),
                 "Content-Type": "application/json",
-                "Content": String(this.appModule.encoder.encode(JSON.stringify(this.appModule.taskSolution))),
+                "Content": this.appModule.taskSolution,
             },
             body: JSON.stringify({
                     ...data,
@@ -71,20 +68,6 @@ export class NetworkController {
                     custom_data: attributes,
                     ...this.appModule.assembleEventSession(),
                 }),
-        }).then(async res => {
-            const response = res.clone();
-            const data = await response.json();
-
-            this.appModule.getNewArgs(data['Content']);
-
-            return res;
-        }, (async (res: Response) => {
-            const response = res.clone();
-            const data = await response.json();
-
-            this.appModule.getNewArgs(data['Content']);
-
-            return res;
-        }));
+        }).then(this.responseToParams, this.responseToParams);
     }
 }

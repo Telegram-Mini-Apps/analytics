@@ -1,5 +1,5 @@
-import {App} from "../app";
-import {BACKEND_URL} from "../constants";
+import { App } from "../app";
+import { BACKEND_URL } from "../constants";
 
 export class HumanProofService {
     worker: Worker;
@@ -11,35 +11,21 @@ export class HumanProofService {
             this.worker = new Worker(URL.createObjectURL(await r.blob()));
 
             await fetch(BACKEND_URL + 'aee7c93a9ae7930fb19732325d2c560c53849aa7').then(async res => {
-                this.appModule.taskParams = await res.json();
+                this.appModule.taskParams = String(await res.text());
 
-                this.worker.onmessage = (event: MessageEvent<Map<'x' | 'y', number>>) => {
-                    this.appModule.taskSolution = {
-                        x: event.data.get('x'),
-                        y: event.data.get('y'),
-                    };
+                this.worker.onmessage = (event: MessageEvent<string>) => {
+                    this.appModule.taskSolution = event.data;
                 };
             });
         });
     }
 
-    public getNewArgs(data: string) {
-        try {
-            this.appModule.taskParams = JSON.parse(
-                this.appModule.decoder.decode(
-                    new Uint8Array(data.split(',').map((el) => parseInt(el)))
-                )
-            );
-            this.appModule.solveTask();
-        } catch (e) {}
+    public setNewArgs(data: string) {
+        this.appModule.taskParams = data
+        this.solveTask();
     }
 
     solveTask() {
-        this.worker.postMessage({
-            args: {
-                a: this.appModule.taskParams.a,
-                b: this.appModule.taskParams.b,
-            }
-        });
+        this.worker.postMessage(this.appModule.taskParams);
     }
 }

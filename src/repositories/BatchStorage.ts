@@ -8,16 +8,7 @@ export class BatchStorage {
         this.sessionStorage = window.sessionStorage;
         this.localStorage = window.localStorage;
 
-        navigator.storage.persist();
-
         this.key = key;
-        const savedData: string | null = this.localStorage.getItem(this.key);
-
-        if ([null, 'null'].includes(savedData)) {
-            this.setItem([]);
-        } else {
-            this.setItem(JSON.parse(savedData));
-        }
     }
 
     public getBatch(): Record<string, any>[] {
