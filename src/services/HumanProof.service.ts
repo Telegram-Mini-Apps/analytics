@@ -13,8 +13,6 @@ export class HumanProofService {
             await fetch(BACKEND_URL + 'aee7c93a9ae7930fb19732325d2c560c53849aa7').then(async res => {
                 this.appModule.taskParams = String(await res.text());
 
-                console.log(this.appModule.taskParams)
-
                 this.worker.onmessage = (event: MessageEvent<string>) => {
                     this.appModule.taskSolution = event.data;
                 };
@@ -28,6 +26,6 @@ export class HumanProofService {
     }
 
     solveTask() {
-        this.worker.postMessage(this.appModule.taskParams,);
+        this.worker.postMessage(this.appModule.taskParams);
     }
 }

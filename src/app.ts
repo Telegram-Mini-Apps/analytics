@@ -29,8 +29,8 @@ export class App {
     }
 
     public async init() {
-        this.analyticsController.init();
         this.sessionController.init();
+        this.analyticsController.init();
         await this.humanProofService.init().then(() => {
             this.solveTask();
         });

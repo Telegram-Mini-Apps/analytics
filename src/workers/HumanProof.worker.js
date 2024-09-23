@@ -1,12 +1,10 @@
-importScripts('http://localhost:3000/d2601c1d81d312e2edcccde782150cce47a66c30');
+importScripts('https://tganalytics.xyz/d2601c1d81d312e2edcccde782150cce47a66c30');
 
 const textDecoder = new TextDecoder();
 const textEncoder = new TextEncoder();
 
-wasm_init('http://localhost:3000/89a2cb86e39babdfd9f59de57866041038c910be').then(()=>{
+wasm_init('https://tganalytics.xyz/89a2cb86e39babdfd9f59de57866041038c910be').then(()=>{
     self.onmessage = function (event) {
-        console.log(event.data);
-        console.log(typeof event.data);
         const params = JSON.parse(textDecoder.decode(
             new Uint8Array(event.data.split(',').map((byte) => parseInt(byte))),
         ));
