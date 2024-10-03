@@ -60,20 +60,6 @@ telegramAnalytics.init({
 });
 ```
 
-### Example Implementation
-
-Here’s an example of how to use the Telegram Analytics SDK in your application:
-
-```javascript
-import telegramAnalytics from '@telegram-apps/analytics';
-
-// Initialize the SDK
-telegramAnalytics.init({
-    token: 'YOUR_TOKEN',
-    appName: 'APP_NAME',
-});
-```
-
 ## 🤝 Contributing [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 Contributions are welcome! To contribute, fork the repository, make your changes, and submit a pull request. We look forward to your innovative [ideas](https://github.com/Telegram-Mini-Apps/TelegramAnalytics/pulls) and improvements.
