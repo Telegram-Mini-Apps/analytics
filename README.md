@@ -72,12 +72,6 @@ telegramAnalytics.init({
     token: 'YOUR_TOKEN',
     appName: 'APP_NAME',
 });
-
-// Track an event
-telegramAnalytics.track('Event Name', {
-    property1: 'value1',
-    property2: 'value2',
-});
 ```
 
 ## 🤝 Contributing [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
