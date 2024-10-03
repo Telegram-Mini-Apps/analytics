@@ -95,4 +95,4 @@ Contributions are welcome! To contribute, fork the repository, make your changes
 
 This Telegram Analytics SDK is available under the [MIT License](https://opensource.org/license/mit). Feel free to use it in both personal and commercial projects.
 
-The library was expertly developed by [mainsmirnov](https://github.com/mainsmirnov), with generous support from [TON Foundation](https://github.com/ton-society/grants-and-bounties/issues/364).
+The library was expertly developed by [sorawalker](https://github.com/sorawalker), with generous support from [TON Foundation](https://github.com/ton-society/grants-and-bounties/issues/364).
