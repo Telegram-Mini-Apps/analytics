@@ -17,7 +17,7 @@ Telegram Analytics is a powerful SDK and API that enables your mini-application 
 ## Resources
 
 - **Example Mini App:** Typescript version — [dapp](https://github.com/Dimitreee/demo-dapp-with-analytics).
-- **Docs** Access latest docs at [gitbook](https://figma.com/community/file/1348989725141777736/).
+- **Docs:** Access latest docs at [gitbook](https://figma.com/community/file/1348989725141777736/).
 
 ## Installation
 
