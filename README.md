@@ -4,12 +4,6 @@
 
 Telegram Analytics is a powerful SDK and API that enables your mini-application to become a rich source of actionable data. By tracking user activity within your app, it transforms that data into clear, useful analytics that can help you optimize your application and enhance user engagement.
 
-## Features
-
-- **Comprehensive User Activity Tracking:** Gain insights into user interactions within your app, enabling informed decision-making.
-- **Actionable Metrics:** Access key performance indicators that highlight user behavior and areas for improvement.
-- **Optimization Guidance:** Identify specific steps to enhance user experience based on analytical insights.
-
 ## 🖥 Environment Support
 
 - Modern browsers
