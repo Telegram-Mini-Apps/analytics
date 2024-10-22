@@ -17,7 +17,7 @@ Telegram Analytics is a powerful SDK and API that enables your mini-application 
 ## Resources
 
 - **Example Mini App:** Typescript version — [dapp](https://github.com/Dimitreee/demo-dapp-with-analytics).
-- **Docs:** Access latest docs at [gitbook](https://figma.com/community/file/1348989725141777736/).
+- **Docs:** Access latest docs at [gitbook](https://docs.tganalytics.xyz/).
 
 ## Installation
 
@@ -68,4 +68,4 @@ Contributions are welcome! To contribute, fork the repository, make your changes
 
 This Telegram Analytics SDK is available under the [MIT License](https://opensource.org/license/mit). Feel free to use it in both personal and commercial projects.
 
-The library was expertly developed by [sorawalker](https://github.com/sorawalker), with generous support from [TON Foundation](https://github.com/ton-society/grants-and-bounties/issues/364).
+The library was expertly developed by [sorawalker](https://github.com/sorawalker), with generous support from [TON Foundation](https://github.com/ton-society/grants-and-bounties/).
