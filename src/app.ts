@@ -16,7 +16,7 @@ export class App {
     private readonly appName: string;
 
     public taskParams: string;
-    public taskSolution: string;
+    public taskSolution: string | undefined;
 
     constructor(apiToken: string, appName: string) {
         this.apiToken = apiToken;
@@ -33,7 +33,7 @@ export class App {
         this.analyticsController.init();
         await this.humanProofService.init().then(() => {
             this.solveTask();
-        });
+        }).catch(e => console.error(e));
         this.networkController.init();
         this.batchService.init();
     }

@@ -18,6 +18,21 @@ export class NetworkController {
         return res;
     };
 
+    private readonly generateHeaders = () => {
+        if (this.appModule.taskSolution) {
+            return {
+                "TGA-Auth-Token": this.appModule.getApiToken(),
+                "Content-Type": "application/json",
+                "Content": this.appModule.taskSolution,
+            }
+        }
+
+        return {
+            "TGA-Auth-Token": this.appModule.getApiToken(),
+            "Content-Type": "application/json",
+        }
+    }
+
     constructor(app: App) {
         this.appModule = app;
 
@@ -33,11 +48,7 @@ export class NetworkController {
     ) {
         return await fetch(this.BACKEND_URL + 'events',{
             method: 'POST',
-            headers: {
-                "TGA-Auth-Token": this.appModule.getApiToken(),
-                "Content-Type": "application/json",
-                "Content": this.appModule.taskSolution,
-            },
+            headers: this.generateHeaders(),
             body: JSON.stringify(data),
         }).then(this.responseToParams, this.responseToParams);
     }
@@ -57,11 +68,7 @@ export class NetworkController {
 
         await fetch(this.BACKEND_URL + 'events',{
             method: 'POST',
-            headers: {
-                "TGA-Auth-Token": this.appModule.getApiToken(),
-                "Content-Type": "application/json",
-                "Content": this.appModule.taskSolution,
-            },
+            headers: this.generateHeaders(),
             body: JSON.stringify({
                     ...data,
                     event_name: event_name,
