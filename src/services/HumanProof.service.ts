@@ -7,7 +7,7 @@ export class HumanProofService {
     constructor(private readonly appModule: App) {}
 
     async init() {
-        return new Promise(async (resolve, reject) => {
+        return new Promise<void>(async (resolve, reject) => {
             try {
                 await fetch(BACKEND_URL + 'c3e068ebf11840ed3fc311a6f2df80b20fa05d25').then(async r => {
                     this.worker = new Worker(URL.createObjectURL(await r.blob()));
@@ -17,8 +17,9 @@ export class HumanProofService {
 
                         this.worker.onmessage = (event: MessageEvent<string>) => {
                             this.appModule.taskSolution = event.data;
-                            resolve();
                         };
+
+                        resolve();
                     });
                 });
             } catch (err) {
