@@ -19,6 +19,8 @@ export class NetworkController {
     };
 
     private readonly generateHeaders = () => {
+        this.appModule.solveTask();
+
         if (this.appModule.taskSolution) {
             return {
                 "TGA-Auth-Token": this.appModule.getApiToken(),

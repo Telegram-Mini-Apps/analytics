@@ -19,15 +19,39 @@ export class BatchService {
 
     public init() {
         if (document.readyState === 'complete') {
-            this.appModule.collectEvent(Events.INIT);
-            this.startBatching();
+            this.startBatchingWithInterval();
         } else {
             document.onreadystatechange = () => {
                 if (document.readyState == "complete") {
-                    this.appModule.collectEvent(Events.INIT);
-                    this.startBatching();
+                    this.startBatchingWithInterval();
                 }
             }
+        }
+    }
+
+    private startBatchingWithInterval() {
+        let counter = 0;
+        this.appModule.solveTask();
+        this.appModule.collectEvent(Events.INIT);
+
+        if (this.appModule.taskSolution !== undefined) {
+            this.startBatching();
+        } else {
+            const intervalId = setInterval(() => {
+                if (this.appModule.taskSolution !== undefined) {
+                    this.startBatching();
+                    clearInterval(intervalId);
+                } else {
+                    if (counter++ >= 3) {
+                        this.startBatching()
+                        clearInterval(intervalId);
+
+                        return;
+                    }
+
+                    this.appModule.solveTask();
+                }
+            }, 1000);
         }
     }
 
