@@ -34,6 +34,8 @@ export class HumanProofService {
     }
 
     solveTask() {
-        this.worker.postMessage(this.appModule.taskParams);
+        if (this.worker !== undefined) {
+            this.worker.postMessage(this.appModule.taskParams);
+        }
     }
 }
