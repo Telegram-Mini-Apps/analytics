@@ -64,9 +64,11 @@ export class App {
 
     public collectTappsEvent(event_name: string, requestBody?: Record<string, any>){
         this.batchService.collect(event_name, {
-            ...requestBody,
             ...this.sessionController.assembleEventSession(),
-            custom_data: this.sessionController.getUserData(),
+            custom_data: {
+                userData: {...this.sessionController.getUserData()},
+                ...requestBody
+            },
         });
     }
 
