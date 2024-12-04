@@ -14,5 +14,6 @@ export const enum Events {
     TRANSACTION_SENT_FOR_SIGNATURE = 'transaction-sent-for-signature',
     TRANSACTION_SIGNED = 'transaction-signed',
     TRANSACTION_SIGNING_FAILED = 'transaction-signing-failed',
-    WALLET_DISCONNECT = 'disconnection'
+    WALLET_DISCONNECT = 'disconnection',
+    ADDITIONAL_TASK_EVENT = 'ADDITIONAL_TASK_EVENT'
 }

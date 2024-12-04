@@ -1,4 +1,3 @@
-import { Events } from './constants'
 import { AnalyticsController } from './controllers/Analytics.controller'
 import { NetworkController } from './controllers/Network.controller'
 import { SessionController } from './controllers/Session.controller'
@@ -60,6 +59,14 @@ export class App {
         this.batchService.collect(event_name, {
             ...requestBody,
             ...this.assembleEventSession(),
+        });
+    }
+
+    public collectTappsEvent(event_name: string, requestBody?: Record<string, any>){
+        this.batchService.collect(event_name, {
+            ...requestBody,
+            ...this.sessionController.assembleEventSession(),
+            custom_data: this.sessionController.getUserData(),
         });
     }
 
