@@ -1,11 +1,22 @@
 import { App } from '../app'
-import { BACKEND_URL } from '../constants'
+import {BACKEND_URL, STAGING_BACKEND_URL} from '../constants'
 import { Errors, throwError } from '../errors'
 
 export class NetworkController {
     private appModule: App;
 
-    private readonly BACKEND_URL: string = BACKEND_URL;
+    private BACKEND_URL: string = BACKEND_URL;
+
+    constructor(app: App) {
+        this.appModule = app;
+        if (this.appModule.env === 'STG') {
+            this.BACKEND_URL = STAGING_BACKEND_URL;
+        }
+
+        if (!this.appModule.getApiToken()) {
+            throwError(Errors.TOKEN_IS_NOT_PROVIDED);
+        }
+    }
 
     private readonly responseToParams = async (res: Response)=> {
         const response: Response = res.clone();
@@ -32,14 +43,6 @@ export class NetworkController {
         return {
             "TGA-Auth-Token": this.appModule.getApiToken(),
             "Content-Type": "application/json",
-        }
-    }
-
-    constructor(app: App) {
-        this.appModule = app;
-
-        if (!this.appModule.getApiToken()) {
-            throwError(Errors.TOKEN_IS_NOT_PROVIDED);
         }
     }
 

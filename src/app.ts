@@ -2,7 +2,7 @@ import { AnalyticsController } from './controllers/Analytics.controller'
 import { NetworkController } from './controllers/Network.controller'
 import { SessionController } from './controllers/Session.controller'
 import { BatchService } from "./services/Batch.service";
-import {HumanProofService} from "./services/HumanProof.service";
+import { HumanProofService } from "./services/HumanProof.service";
 
 export class App {
     private sessionController: SessionController;
@@ -16,8 +16,11 @@ export class App {
 
     public taskParams: string;
     public taskSolution: string | undefined;
+    public env: 'STG' | 'PROD';
 
-    constructor(apiToken: string, appName: string) {
+    constructor(apiToken: string, appName: string, env: 'STG' | 'PROD') {
+        this.env = env;
+
         this.apiToken = apiToken;
         this.appName = appName;
         this.humanProofService = new HumanProofService(this);
