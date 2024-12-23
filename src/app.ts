@@ -1,9 +1,8 @@
-import { Events } from './constants'
 import { AnalyticsController } from './controllers/Analytics.controller'
 import { NetworkController } from './controllers/Network.controller'
 import { SessionController } from './controllers/Session.controller'
 import { BatchService } from "./services/Batch.service";
-import {HumanProofService} from "./services/HumanProof.service";
+import { HumanProofService } from "./services/HumanProof.service";
 
 export class App {
     private sessionController: SessionController;
@@ -17,8 +16,11 @@ export class App {
 
     public taskParams: string;
     public taskSolution: string | undefined;
+    public env: 'STG' | 'PROD';
 
-    constructor(apiToken: string, appName: string) {
+    constructor(apiToken: string, appName: string, env: 'STG' | 'PROD') {
+        this.env = env;
+
         this.apiToken = apiToken;
         this.appName = appName;
         this.humanProofService = new HumanProofService(this);
@@ -60,6 +62,16 @@ export class App {
         this.batchService.collect(event_name, {
             ...requestBody,
             ...this.assembleEventSession(),
+        });
+    }
+
+    public collectTappsEvent(event_name: string, requestBody?: Record<string, any>){
+        this.batchService.collect(event_name, {
+            ...this.sessionController.assembleEventSession(),
+            custom_data: {
+                userData: {...this.sessionController.getUserData()},
+                ...requestBody
+            },
         });
     }
 
