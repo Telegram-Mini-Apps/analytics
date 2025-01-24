@@ -62,7 +62,7 @@ import telegramAnalytics from '@telegram-apps/analytics';
 
 telegramAnalytics.init({
     token: 'YOUR_TOKEN',
-    appName: 'APP_NAME',
+    appName: 'ANALYTICS_IDENTIFIER',
 });
 ```
 
