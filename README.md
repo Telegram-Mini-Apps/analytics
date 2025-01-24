@@ -4,7 +4,11 @@
 
 Telegram Analytics is a powerful SDK and API that enables your mini-application to become a rich source of actionable data. By tracking user activity within your app, it transforms that data into clear, useful analytics that can help you optimize your application and enhance user engagement.
 
-## 🖥 Environment Support
+### ⚠️ **Disclaimer**
+
+> The library does not collect or store any private user data. It tracks app launches, TON Connect interactions, and GDPR-compliant events in an anonymous format. This data is used solely for to rank applications in the catalog based on their performance and Streaks.
+
+## 🖥️ Environment Support
 
 - Modern browsers
 - Server-side Rendering
@@ -47,9 +51,11 @@ pnpm add @telegram-apps/analytics
 
 ## Usage
 
+First of all, you must generate an access token through the [Data Chief](https://t.me/DataChief_bot) bot. For detailed instructions on how to connect SDK and receive a token, please refer to the [documentation](https://docs.tganalytics.xyz/).
+
 ### Initialize the SDK
 
-After installation, you need to initialize the SDK before your application starts rendering:
+After installation and token generation, you need to initialize the SDK before your application starts rendering:
 
 ```javascript
 import telegramAnalytics from '@telegram-apps/analytics';
