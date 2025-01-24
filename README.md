@@ -51,7 +51,8 @@ pnpm add @telegram-apps/analytics
 
 ## Usage
 
-First of all, you must generate an access token through the [Data Chief](https://t.me/DataChief_bot) bot. For detailed instructions on how to connect SDK and receive a token, please refer to the [documentation](https://docs.tganalytics.xyz/).
+> [!IMPORTANT]
+>First of all, you must generate an access token through the [Data Chief](https://t.me/DataChief_bot) bot. For detailed instructions on how to connect SDK and receive a token, please refer to the [documentation](https://docs.tganalytics.xyz/).
 
 ### Initialize the SDK
 
