@@ -1,4 +1,5 @@
 export const BACKEND_URL: string = 'https://tganalytics.xyz/';
+export const STAGING_BACKEND_URL: string = 'https://staging.tganalytics.xyz/';
 export const BATCH_KEY: string = 'TGA-Batch-Requests';
 
 export const enum Events {
@@ -14,5 +15,6 @@ export const enum Events {
     TRANSACTION_SENT_FOR_SIGNATURE = 'transaction-sent-for-signature',
     TRANSACTION_SIGNED = 'transaction-signed',
     TRANSACTION_SIGNING_FAILED = 'transaction-signing-failed',
-    WALLET_DISCONNECT = 'disconnection'
+    WALLET_DISCONNECT = 'disconnection',
+    ADDITIONAL_TASK_EVENT = 'ADDITIONAL_TASK_EVENT'
 }
