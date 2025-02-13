@@ -58,7 +58,7 @@ pnpm add @telegram-apps/analytics
 
 After installation and token generation, you need to initialize the SDK:
 
-#### Via <script> tag
+#### Via <script> tag [![Example](https://img.shields.io/badge/Example-gray?logo=github)](https://github.com/sorawalker/demo-dapp-with-analytics/blob/patch-1/index.html)
 
 ```javascript
 <!-- Add Telegram Analytics script to HTML head -->
