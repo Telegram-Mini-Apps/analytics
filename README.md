@@ -28,7 +28,9 @@ Telegram Analytics is a powerful SDK and API that enables your mini-application 
 > [!IMPORTANT]
 >First of all, you must generate an access token through the [Data Chief](https://t.me/DataChief_bot) bot. For detailed instructions on how to connect SDK and receive a token, please refer to the [documentation](https://docs.tganalytics.xyz/).
 
-After token generation, you need to initialize the SDK:
+After token generation, you need to initialize the SDK. 
+
+**There are two ways to initialize analytics: using CDN and the script tag, or using the NPM package.**
 
 ### Using a CDN [![Example](https://img.shields.io/badge/Example-gray?logo=github)](https://github.com/sorawalker/demo-dapp-with-analytics/blob/patch-1/index.html)
 
@@ -47,8 +49,8 @@ To add the Telegram Analytics SDK via CDN, include the following script`s in you
 <script>
     function initAnalytics() {
       window.telegramAnalytics.init({
-        token: 'YOUR_TOKEN',
-        appName: 'ANALYTICS_IDENTIFIER',
+        token: 'YOUR_TOKEN', // Token received via @DataChief_bot
+        appName: 'ANALYTICS_IDENTIFIER', // The analytics identifier entered in the first step in @DataChief_bot
       });
     }
 </script>
@@ -76,8 +78,8 @@ To ensure that all events are collected correctly, you must initialize the SDK b
 import telegramAnalytics from '@telegram-apps/analytics';
 
 telegramAnalytics.init({
-    token: 'YOUR_TOKEN',
-    appName: 'ANALYTICS_IDENTIFIER',
+    token: 'YOUR_TOKEN', // Token received via @DataChief_bot
+    appName: 'ANALYTICS_IDENTIFIER', // The analytics identifier entered in the first step in @DataChief_bot
 });
 ```
 
