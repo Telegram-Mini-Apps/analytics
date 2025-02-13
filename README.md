@@ -78,7 +78,7 @@ After installation and token generation, you need to initialize the SDK:
 </script>
 ```
 
-#### Via NPM package
+#### Via NPM package [![Example](https://img.shields.io/badge/Example-gray?logo=github)](https://github.com/sorawalker/demo-dapp-with-analytics/blob/master/src/main.tsx)
 
 To ensure that all events are collected correctly, you must initialize the SDK before the application starts rendering. For example, in react applications, before calling the render() function
 
