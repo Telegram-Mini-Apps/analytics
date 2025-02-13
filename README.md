@@ -50,7 +50,7 @@ To add the Telegram Analytics SDK via CDN, include the following script`s in you
     function initAnalytics() {
       window.telegramAnalytics.init({
         token: 'YOUR_TOKEN', // Token received via @DataChief_bot
-        appName: 'ANALYTICS_IDENTIFIER', // The analytics identifier entered in the first step in @DataChief_bot
+        appName: 'ANALYTICS_IDENTIFIER', // The analytics identifier you entered in @DataChief_bot
       });
     }
 </script>
@@ -79,7 +79,7 @@ import telegramAnalytics from '@telegram-apps/analytics';
 
 telegramAnalytics.init({
     token: 'YOUR_TOKEN', // Token received via @DataChief_bot
-    appName: 'ANALYTICS_IDENTIFIER', // The analytics identifier entered in the first step in @DataChief_bot
+    appName: 'ANALYTICS_IDENTIFIER', // The analytics identifier you entered in @DataChief_bot
 });
 ```
 
