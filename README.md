@@ -56,7 +56,31 @@ pnpm add @telegram-apps/analytics
 
 ### Initialize the SDK
 
-After installation and token generation, you need to initialize the SDK before your application starts rendering:
+After installation and token generation, you need to initialize the SDK:
+
+#### Via <script> tag
+
+```javascript
+<!-- Add Telegram Analytics script to HTML head -->
+<script 
+    async 
+    src="https://tganalytics.xyz/index.js" 
+    onload="initAnalytics()" 
+    type="text/javascript"
+></script>
+<script>
+    function initAnalytics() {
+      window.telegramAnalytics.init({
+        token: 'YOUR_TOKEN',
+        appName: 'ANALYTICS_IDENTIFIER',
+      });
+    }
+</script>
+```
+
+#### Via NPM package
+
+To ensure that all events are collected correctly, you must initialize the SDK before the application starts rendering. For example, in react applications, before calling the render() function
 
 ```javascript
 import telegramAnalytics from '@telegram-apps/analytics';
@@ -66,6 +90,8 @@ telegramAnalytics.init({
     appName: 'ANALYTICS_IDENTIFIER',
 });
 ```
+
+After initializing the Telegram Analytics, you are all set to transfer the data, gain insights, and improve user engagement. (99% of them will be tracked automatically without manual control)
 
 ## 🤝 Contributing [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
