@@ -32,7 +32,7 @@ export class App {
 
     public async init() {
         this.sessionController.init();
-        this.analyticsController.init();
+        await this.analyticsController.init();
         await this.humanProofService.init().then(() => {
             this.solveTask();
         }).catch(e => console.error(e));
