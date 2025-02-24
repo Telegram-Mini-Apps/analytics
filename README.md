@@ -25,15 +25,38 @@ Telegram Analytics is a powerful SDK and API that enables your mini-application 
 
 ## Installation
 
-### Using CDN
+> [!IMPORTANT]
+>First of all, you must generate an access token through the [Data Chief](https://t.me/DataChief_bot) bot. For detailed instructions on how to connect SDK and receive a token, please refer to the [documentation](https://docs.tganalytics.xyz/).
 
-To add the Telegram Analytics SDK via CDN, include the following script in your HTML head:
+After token generation, you need to initialize the SDK.
+
+**There are two ways to initialize analytics: using CDN and the script tag, or using the NPM package.**
+
+### Using a CDN [![Example](https://img.shields.io/badge/Example-gray?logo=github)](https://github.com/sorawalker/demo-dapp-with-analytics/blob/patch-1/index.html)
+
+To add the Telegram Analytics SDK via CDN, include the following script`s in your HTML head:
 
 ```html
-<script async src="https://tganalytics.xyz/index.js" type="text/javascript"></script>
+<script 
+    async 
+    src="https://tganalytics.xyz/index.js" 
+    onload="initAnalytics()" 
+    type="text/javascript"
+></script>
 ```
 
-### Using npm
+```html
+<script>
+    function initAnalytics() {
+      window.telegramAnalytics.init({
+        token: 'YOUR_TOKEN', // Token received via @DataChief_bot
+        appName: 'ANALYTICS_IDENTIFIER', // The analytics identifier you entered in @DataChief_bot
+      });
+    }
+</script>
+```
+
+### Using the NPM package [![Example](https://img.shields.io/badge/Example-gray?logo=github)](https://github.com/sorawalker/demo-dapp-with-analytics/blob/master/src/main.tsx)
 
 You can install the package via npm:
 
@@ -49,23 +72,20 @@ yarn add @telegram-apps/analytics
 pnpm add @telegram-apps/analytics
 ```
 
-## Usage
-
-> [!IMPORTANT]
->First of all, you must generate an access token through the [Data Chief](https://t.me/DataChief_bot) bot. For detailed instructions on how to connect SDK and receive a token, please refer to the [documentation](https://docs.tganalytics.xyz/).
-
-### Initialize the SDK
-
-After installation and token generation, you need to initialize the SDK before your application starts rendering:
+To ensure that all events are collected correctly, you must initialize the SDK before the application starts rendering. For example, in react applications, before calling the render() function
 
 ```javascript
 import telegramAnalytics from '@telegram-apps/analytics';
 
 telegramAnalytics.init({
-    token: 'YOUR_TOKEN',
-    appName: 'ANALYTICS_IDENTIFIER',
+    token: 'YOUR_TOKEN', // Token received via @DataChief_bot
+    appName: 'ANALYTICS_IDENTIFIER', // The analytics identifier you entered in @DataChief_bot
 });
 ```
+
+-----
+
+After initializing the Telegram Analytics, you are all set to transfer the data, gain insights, and improve user engagement. (99% of them will be tracked automatically without manual control)
 
 ## 🤝 Contributing [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
