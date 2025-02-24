@@ -2,18 +2,22 @@ import { App } from '../app'
 import { TonConnectObserver } from "../observers/TonConnect.observer";
 import { DocumentObserver } from "../observers/Document.observer";
 import { TappsObserver } from "../observers/tapps/Tapps.observer";
+import { CustomEventObserver } from "../observers/CustomEvent.observer";
 
 export class AnalyticsController {
     private appModule: App;
     private tonConnectObserver: TonConnectObserver;
     private documentObserver: DocumentObserver;
     private tappsObserver: TappsObserver;
+    private customEventObserver: CustomEventObserver;
 
     constructor(app: App) {
         this.appModule = app;
 
         this.documentObserver = new DocumentObserver(this);
         this.tonConnectObserver = new TonConnectObserver(this);
+        this.customEventObserver = new CustomEventObserver(this);
+        //TODO deprecate
         this.tappsObserver = new TappsObserver(this);
     }
 
