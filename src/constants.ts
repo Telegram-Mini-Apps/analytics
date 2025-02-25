@@ -5,7 +5,7 @@ export const BATCH_KEY: string = 'TGA-Batch-Requests';
 export const enum Events {
     INIT = 'app-init',
     HIDE = 'app-hide',
-    CUSTOM_EVENT = 'custom-event',
+    CUSTOM_EVENT = 'ANALYTICS_CUSTOM_EVENT',
     WALLET_CONNECT_STARTED = 'connection-started',
     WALLET_CONNECT_SUCCESS = 'connection-completed',
     WALLET_CONNECT_ERROR = 'connection-error',
@@ -16,5 +16,6 @@ export const enum Events {
     TRANSACTION_SIGNED = 'transaction-signed',
     TRANSACTION_SIGNING_FAILED = 'transaction-signing-failed',
     WALLET_DISCONNECT = 'disconnection',
-    ADDITIONAL_TASK_EVENT = 'ADDITIONAL_TASK_EVENT'
+    ADDITIONAL_TASK_EVENT = 'ADDITIONAL_TASK_EVENT',
+    ANALYTICS_CUSTOM_EVENT = 'ANALYTICS_CUSTOM_EVENT'
 }

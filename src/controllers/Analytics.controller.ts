@@ -24,7 +24,8 @@ export class AnalyticsController {
     public init() {
         this.documentObserver.init();
         this.tonConnectObserver.init();
-        this.tappsObserver.init()
+        this.customEventObserver.init();
+        this.tappsObserver.init();
     }
 
     public recordEvent(event_name: string, data?: Record<string, any>) {

@@ -1,4 +1,5 @@
 import { AnalyticsController } from "../controllers/Analytics.controller";
+import {Events} from "../constants";
 
 export class CustomEventObserver {
     private analyticsController: AnalyticsController;
@@ -8,8 +9,10 @@ export class CustomEventObserver {
     }
 
     public init() {
+            console.log(`Attach analytics custom event listener`);
+
             window.addEventListener(
-                'ANALYTICS_CUSTOM_EVENT',
+                Events.ANALYTICS_CUSTOM_EVENT,
                 (event: CustomEvent<Record<string, any> & {
                     type: string,
                 }>) => {
