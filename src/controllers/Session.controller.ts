@@ -1,4 +1,4 @@
-import { retrieveLaunchParams } from '@telegram-apps/sdk';
+import {retrieveLaunchParams, User} from '@telegram-apps/sdk';
 import { WebAppUser } from '@twa-dev/types'
 import { App } from '../app'
 import { Errors, throwError } from '../errors'
@@ -19,27 +19,56 @@ export class SessionController {
     }
 
     public init() {
-        const lp = retrieveLaunchParams();
-        const initData = lp.initData;
-        const user = lp.initData?.user;
-        if (!user) {
-            throwError(Errors.USER_DATA_IS_NOT_PROVIDED);
+        let user: (WebAppUser & { added_to_attachment_menu?: boolean; allows_write_to_pm?: boolean }) | User;
+
+        if (window.Telegram.WebApp) {
+            const initData = window.Telegram.WebApp.initDataUnsafe;
+
+            user = initData.user;
+
+            if (!user) {
+                throwError(Errors.USER_DATA_IS_NOT_PROVIDED);
+            }
+
+            this.userData = {
+                id: user.id,
+                is_premium: user.is_premium,
+                first_name: user.first_name,
+                is_bot: user.is_bot,
+                last_name: user.last_name,
+                language_code: user.language_code,
+                photo_url: user.photo_url,
+                username: user.username,
+            };
+            this.userId = user.id;
+            this.userLocale = user.language_code;
+            this.webAppStartParam = initData.start_param;
+            this.platform = window.Telegram.WebApp.platform;
+        } else {
+            const lp = retrieveLaunchParams();
+            const initData = lp.initData;
+            user = lp.initData?.user;
+
+            if (!user) {
+                throwError(Errors.USER_DATA_IS_NOT_PROVIDED);
+            }
+
+            this.userData = {
+                id: user.id,
+                is_premium: user.isPremium,
+                first_name: user.firstName,
+                is_bot: user.isBot,
+                last_name: user.lastName,
+                language_code: user.languageCode,
+                photo_url: user.photoUrl,
+                username: user.username,
+            };
+            this.userId = user.id;
+            this.userLocale = user.languageCode;
+            this.webAppStartParam = initData.startParam;
+            this.platform = lp.platform;
         }
 
-        this.userData = {
-            id: user.id,
-            is_premium: user.isPremium,
-            first_name: user.firstName,
-            is_bot: user.isBot,
-            last_name: user.lastName,
-            language_code: user.languageCode,
-            photo_url: user.photoUrl,
-            username: user.username,
-        };
-        this.userId = user.id;
-        this.userLocale = user.languageCode;
-        this.webAppStartParam = initData.startParam;
-        this.platform = lp.platform;
         this.sessionId = generateUUID(String(this.getUserId()));
     }
 
