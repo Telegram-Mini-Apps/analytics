@@ -16,5 +16,12 @@ export const enum Events {
     TRANSACTION_SIGNED = 'transaction-signed',
     TRANSACTION_SIGNING_FAILED = 'transaction-signing-failed',
     WALLET_DISCONNECT = 'disconnection',
-    ADDITIONAL_TASK_EVENT = 'ADDITIONAL_TASK_EVENT'
+    ADDITIONAL_TASK_EVENT = 'ADDITIONAL_TASK_EVENT',
+    PURCHASE_INIT = 'purchase-init',
+    PURCHASE_SUCCESS = 'purchase-success',
+    PURCHASE_FAILED = 'purchase-failed',
+    REFUND_ISSUED = 'refund-issued',
+    SUBSCRIPTION_STARTED = 'subscription-started',
+    SUBSCRIPTION_RENEWED = 'subscription-renewed',
+    SUBSCRIPTION_CANCELLED = 'subscription-cancelled',
 }

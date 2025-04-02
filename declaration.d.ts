@@ -263,6 +263,7 @@ export interface WebApp {
 
 export interface Telegram {
     WebApp: WebApp;
+    WebView: any;
 }
 
 declare global {
