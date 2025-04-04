@@ -1,14 +1,11 @@
 import { AnalyticsController } from "../controllers/Analytics.controller";
 import { Events } from "../constants";
 
-export class StarsObserver {
+export class WebAppObserver {
     private analyticsController: AnalyticsController;
 
     private webApp = typeof window !== 'undefined' && window?.Telegram?.WebApp
         ? window.Telegram.WebApp
-        : null;
-    private webView = typeof window !== 'undefined' && window?.Telegram?.WebView
-        ? window.Telegram.WebView
         : null;
 
     private readonly eventStatusMap = {
@@ -32,15 +29,6 @@ export class StarsObserver {
 
                 return originalOpenInvoice.call(this.webApp, url, callback);
             };
-
-            this.webView?.onEvent('invoice_closed', (event: string, data?: {
-                url: string;
-                status: 'paid' | 'cancelled' | 'failed' | 'pending'
-            }) => {
-                if (this.eventStatusMap[data.status]) {
-                    this.analyticsController.collectEvent(this.eventStatusMap[data.status])
-                }
-            });
         }
     }
 

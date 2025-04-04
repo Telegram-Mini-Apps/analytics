@@ -2,13 +2,15 @@ import { App } from '../app'
 import { TonConnectObserver } from "../observers/TonConnect.observer";
 import { DocumentObserver } from "../observers/Document.observer";
 import { TappsObserver } from "../observers/tapps/Tapps.observer";
-import {StarsObserver} from "../observers/Stars.observer";
+import {WebAppObserver} from "../observers/WebApp.observer";
+import {WebViewObserver} from "../observers/WebView.observer";
 
 export class AnalyticsController {
     private appModule: App;
     private tonConnectObserver: TonConnectObserver;
     private documentObserver: DocumentObserver;
-    private starsObserver: StarsObserver;
+    private webAppObserver: WebAppObserver;
+    private webViewObserver: WebViewObserver;
     private tappsObserver: TappsObserver;
 
     constructor(app: App) {
@@ -16,14 +18,16 @@ export class AnalyticsController {
 
         this.documentObserver = new DocumentObserver(this);
         this.tonConnectObserver = new TonConnectObserver(this);
-        this.starsObserver = new StarsObserver(this);
+        this.webAppObserver = new WebAppObserver(this);
+        this.webViewObserver = new WebViewObserver(this);
         this.tappsObserver = new TappsObserver(this);
     }
 
     public init() {
         this.documentObserver.init();
         this.tonConnectObserver.init();
-        this.starsObserver.init();
+        this.webAppObserver.init();
+        this.webViewObserver.init();
         this.tappsObserver.init();
     }
 
