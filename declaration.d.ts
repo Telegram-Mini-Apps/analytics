@@ -1,3 +1,5 @@
+import {InvoicePayload} from "./src/declarations/invoice-payload.interface";
+
 export interface WebAppUser {
     id: number;
     is_bot?: boolean;
@@ -274,6 +276,7 @@ declare global {
                 token: string;
                 appName: string;
             }) => void;
+            registerInvoice: (invoicePayload: InvoicePayload) => void;
         };
     }
 }

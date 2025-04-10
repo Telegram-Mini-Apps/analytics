@@ -3,6 +3,8 @@ import { NetworkController } from './controllers/Network.controller'
 import { SessionController } from './controllers/Session.controller'
 import { BatchService } from "./services/Batch.service";
 import { HumanProofService } from "./services/HumanProof.service";
+import {InvoicePayload} from "./declarations/invoice-payload.interface";
+import {Events} from "./constants";
 
 export class App {
     private sessionController: SessionController;
@@ -61,6 +63,13 @@ export class App {
     public collectEvent(event_name: string, requestBody?: Record<string, any>){
         this.batchService.collect(event_name, {
             ...requestBody,
+            ...this.assembleEventSession(),
+        });
+    }
+
+    public registerInvoice(invoicePayload: InvoicePayload) {
+        this.batchService.collect(Events.INVOICE_REGISTERED, {
+            ...invoicePayload,
             ...this.assembleEventSession(),
         });
     }

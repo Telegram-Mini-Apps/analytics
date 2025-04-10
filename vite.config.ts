@@ -84,7 +84,7 @@ export default defineConfig(({ mode }): UserConfig => {
                 }),
                 tsconfigPaths(),
                 dts({
-                    include: ['src/index.ts'],
+                    include: ['src/index.ts', 'src/declarations'],
                     outDir: 'lib/types',
                     insertTypesEntry: true,
                 }),
