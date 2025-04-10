@@ -25,7 +25,11 @@ export class WebViewObserver {
                 status: 'paid' | 'cancelled' | 'failed' | 'pending'
             }) => {
                 if (this.eventStatusMap[data.status]) {
-                    this.analyticsController.collectEvent(this.eventStatusMap[data.status])
+                    const slug = data?.url.split('/').pop() || '';
+
+                    this.analyticsController.collectEvent(this.eventStatusMap[data.status], {
+                        slug
+                    });
                 }
             });
         }

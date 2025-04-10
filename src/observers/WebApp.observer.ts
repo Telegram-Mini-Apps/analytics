@@ -8,12 +8,6 @@ export class WebAppObserver {
         ? window.Telegram.WebApp
         : null;
 
-    private readonly eventStatusMap = {
-        paid: Events.PURCHASE_SUCCESS,
-        cancelled: Events.PURCHASE_FAILED,
-        failed: Events.PURCHASE_FAILED,
-    }
-
     constructor(analyticsController: AnalyticsController) {
         this.analyticsController = analyticsController;
     }
@@ -25,7 +19,9 @@ export class WebAppObserver {
             this.webApp.openInvoice = (url: string, callback: any) => {
                 const slug = url.split('/').pop() || '';
 
-                this.analyticsController.collectEvent(Events.PURCHASE_INIT);
+                this.analyticsController.collectEvent(Events.PURCHASE_INIT, {
+                    slug
+                });
 
                 return originalOpenInvoice.call(this.webApp, url, callback);
             };
