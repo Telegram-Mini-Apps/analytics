@@ -24,5 +24,5 @@ export const enum Events {
     SUBSCRIPTION_STARTED = 'subscription-started',
     SUBSCRIPTION_RENEWED = 'subscription-renewed',
     SUBSCRIPTION_CANCELLED = 'subscription-cancelled',
-    INVOICE_REGISTERED = 'invoice-registered',
+    INVOICE_REGISTERED = 'register-invoice',
 }
