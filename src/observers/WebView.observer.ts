@@ -21,14 +21,12 @@ export class WebViewObserver {
     public init() {
         if (this.webView) {
             this.webView?.onEvent('invoice_closed', (event: string, data?: {
-                url: string;
+                slug: string;
                 status: 'paid' | 'cancelled' | 'failed' | 'pending'
             }) => {
                 if (this.eventStatusMap[data.status]) {
-                    const slug = data?.url.split('/').pop() || '';
-
                     this.analyticsController.collectEvent(this.eventStatusMap[data.status], {
-                        slug
+                        slug: data.slug,
                     });
                 }
             });
