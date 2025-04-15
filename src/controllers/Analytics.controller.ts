@@ -25,11 +25,16 @@ export class AnalyticsController {
         this.tonConnectObserver.init();
         this.tappsObserver.init()
 
-        this.eventsThreshold = await (
-            await fetch(
-                (this.appModule.env === 'STG' ? STAGING_BACKEND_URL : BACKEND_URL) + 'events/threshold'
-            )
-        ).json();
+        try {
+            this.eventsThreshold = await (
+                await fetch(
+                    (this.appModule.env === 'STG' ? STAGING_BACKEND_URL : BACKEND_URL) + 'events/threshold'
+                )
+            ).json();
+        } catch (e) {
+            this.eventsThreshold = {};
+        }
+
     }
 
     public recordEvent(event_name: string, data?: Record<string, any>) {
