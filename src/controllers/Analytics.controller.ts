@@ -28,11 +28,16 @@ export class AnalyticsController {
         try {
             this.eventsThreshold = await (
                 await fetch(
-                    (this.appModule.env === 'STG' ? STAGING_BACKEND_URL : BACKEND_URL) + 'events/threshold'
+                    (this.appModule.env === 'STG' ? STAGING_BACKEND_URL : BACKEND_URL) + 'events/threshold',
+                    {
+                        signal: AbortSignal.timeout(2000),
+                    }
                 )
             ).json();
         } catch (e) {
-            this.eventsThreshold = {};
+            this.eventsThreshold = {
+                'app-hide': 3,
+            };
         }
 
     }
