@@ -20,6 +20,7 @@ export const enum Events {
     PURCHASE_INIT = 'purchase-init',
     PURCHASE_SUCCESS = 'purchase-success',
     PURCHASE_FAILED = 'purchase-failed',
+    PURCHASE_CANCELLED = 'purchase-cancelled',
     REFUND_ISSUED = 'refund-issued',
     SUBSCRIPTION_STARTED = 'subscription-started',
     SUBSCRIPTION_RENEWED = 'subscription-renewed',
