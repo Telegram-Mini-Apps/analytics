@@ -1,6 +1,7 @@
 import { App } from '../app'
 import { BACKEND_URL, STAGING_BACKEND_URL } from '../constants'
 import { Errors, throwError } from '../errors'
+import { compressData } from '../utils/compress';
 
 export class NetworkController {
     private appModule: App;
