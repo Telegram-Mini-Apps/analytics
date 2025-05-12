@@ -1,6 +1,7 @@
 import { App } from '../app'
-import {BACKEND_URL, STAGING_BACKEND_URL} from '../constants'
+import { BACKEND_URL, STAGING_BACKEND_URL } from '../constants'
 import { Errors, throwError } from '../errors'
+import { compressData } from '../utils/compress';
 
 export class NetworkController {
     private appModule: App;
@@ -18,6 +19,8 @@ export class NetworkController {
         }
     }
 
+    public init() {}
+
     private readonly responseToParams = async (res: Response)=> {
         const response: Response = res.clone();
         if ((String(response.status)[0] === '2') || (response.status === 429)) {
@@ -27,34 +30,36 @@ export class NetworkController {
         }
 
         return res;
-    };
+    }
 
-    private readonly generateHeaders = () => {
+    private readonly generateHeaders = (compressed: boolean) => {
         this.appModule.solveTask();
 
+        const conditionHeaders = {};
+
         if (this.appModule.taskSolution) {
-            return {
-                "TGA-Auth-Token": this.appModule.getApiToken(),
-                "Content-Type": "application/json",
-                "Content": this.appModule.taskSolution,
-            }
+            conditionHeaders["Content"] = this.appModule.taskSolution;
+        }
+
+        if (compressed) {
+            conditionHeaders['Content-Encoding'] = 'gzip';
         }
 
         return {
             "TGA-Auth-Token": this.appModule.getApiToken(),
             "Content-Type": "application/json",
+            ...conditionHeaders,
         }
     }
 
-    public init() {}
-
     public async recordEvents(
         data: Record<string, any>[],
+        compressed: boolean = true,
     ) {
         return await fetch(this.BACKEND_URL + 'events',{
             method: 'POST',
-            headers: this.generateHeaders(),
-            body: JSON.stringify(data),
+            headers: this.generateHeaders(compressed),
+            body: compressed ? await compressData(data) : JSON.stringify(data),
         }).then(this.responseToParams, this.responseToParams);
     }
 
@@ -62,6 +67,7 @@ export class NetworkController {
         event_name: string,
         data?: Record<string, any>,
         attributes?: Record<string, any>,
+        compressed: boolean = true,
     ) {
         if (data?.custom_data) {
             if (!attributes) {
@@ -71,15 +77,17 @@ export class NetworkController {
             }
         }
 
+        const body = {
+            ...data,
+            event_name: event_name,
+            custom_data: attributes,
+            ...this.appModule.assembleEventSession(),
+        };
+
         await fetch(this.BACKEND_URL + 'events',{
             method: 'POST',
-            headers: this.generateHeaders(),
-            body: JSON.stringify({
-                    ...data,
-                    event_name: event_name,
-                    custom_data: attributes,
-                    ...this.appModule.assembleEventSession(),
-                }),
+            headers: this.generateHeaders(true),
+            body: compressed ? await compressData(body) : JSON.stringify(body),
         }).then(this.responseToParams, this.responseToParams);
     }
 }
