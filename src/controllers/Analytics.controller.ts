@@ -1,16 +1,12 @@
 import { App } from '../app'
 import { TonConnectObserver } from "../observers/TonConnect.observer";
-import { DocumentObserver } from "../observers/Document.observer";
 import {BACKEND_URL, STAGING_BACKEND_URL} from "../constants";
 import { TappsObserver } from "../observers/tapps/Tapps.observer";
-import {WebAppObserver} from "../observers/WebApp.observer";
 import {WebViewObserver} from "../observers/WebView.observer";
 
 export class AnalyticsController {
     private appModule: App;
     private tonConnectObserver: TonConnectObserver;
-    private documentObserver: DocumentObserver;
-    private webAppObserver: WebAppObserver;
     private webViewObserver: WebViewObserver;
     private tappsObserver: TappsObserver;
 
@@ -19,17 +15,13 @@ export class AnalyticsController {
     constructor(app: App) {
         this.appModule = app;
 
-        this.documentObserver = new DocumentObserver(this);
         this.tonConnectObserver = new TonConnectObserver(this);
-        this.webAppObserver = new WebAppObserver(this);
         this.webViewObserver = new WebViewObserver(this);
         this.tappsObserver = new TappsObserver(this);
     }
 
     public async init() {
-        this.documentObserver.init();
         this.tonConnectObserver.init();
-        this.webAppObserver.init();
         this.webViewObserver.init();
         this.tappsObserver.init()
 

@@ -1,5 +1,4 @@
-import { retrieveLaunchParams } from '@telegram-apps/sdk';
-import { WebAppUser } from '@twa-dev/types'
+import { retrieveLaunchParams, User } from '@telegram-apps/sdk';
 import { App } from '../app'
 import { Errors, throwError } from '../errors'
 import { generateUUID } from '../utils/generateUUID';
@@ -7,7 +6,7 @@ import { generateUUID } from '../utils/generateUUID';
 export class SessionController {
     private sessionId: string;
     private userId: number;
-    private userData: WebAppUser;
+    private userData: User;
     private platform: string;
     private webAppStartParam: string;
     private userLocale: string;
@@ -20,26 +19,25 @@ export class SessionController {
 
     public init() {
         const lp = retrieveLaunchParams();
-        const initData = lp.initData;
-        const user = lp.initData?.user;
+        const user = lp.tgWebAppData.user
         if (!user) {
             throwError(Errors.USER_DATA_IS_NOT_PROVIDED);
         }
 
         this.userData = {
             id: user.id,
-            is_premium: user.isPremium,
-            first_name: user.firstName,
-            is_bot: user.isBot,
-            last_name: user.lastName,
-            language_code: user.languageCode,
-            photo_url: user.photoUrl,
+            is_premium: user.is_premium,
+            first_name: user.first_name,
+            is_bot: user.is_bot,
+            last_name: user.last_name,
+            language_code: user.language_code,
+            photo_url: user.photo_url,
             username: user.username,
         };
         this.userId = user.id;
-        this.userLocale = user.languageCode;
-        this.webAppStartParam = initData.startParam;
-        this.platform = lp.platform;
+        this.userLocale = user.language_code;
+        this.webAppStartParam = lp.tgWebAppStartParam;
+        this.platform = lp.tgWebAppPlatform;
         this.sessionId = generateUUID(String(this.getUserId()));
     }
 

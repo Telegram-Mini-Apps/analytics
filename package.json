@@ -26,7 +26,6 @@
   "author": "Cameron Nokes",
   "license": "MIT",
   "devDependencies": {
-    "@twa-dev/types": "^7.0.0",
     "@types/es6-promise": "^3.3.0",
     "javascript-obfuscator": "^4.1.1",
     "terser": "^5.31.0",
@@ -39,7 +38,7 @@
     "wasm-pack": "^0.13.1"
   },
   "dependencies": {
-    "@telegram-apps/sdk": "^1.1.0",
+    "@telegram-apps/sdk": "^3.9.2",
     "@tonconnect/ui": "2.0.5",
     "http-server": "14.1.1"
   },
