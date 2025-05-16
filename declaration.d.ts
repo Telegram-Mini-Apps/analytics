@@ -271,6 +271,8 @@ export interface Telegram {
 declare global {
     interface Window {
         Telegram: Telegram,
+        TelegramGameProxy: any,
+        TelegramGameProxy_receiveEvent: (eventType: string, eventData: unknown) => void,
         telegramAnalytics: {
             init: ({ token, appName }: {
                 token: string;
