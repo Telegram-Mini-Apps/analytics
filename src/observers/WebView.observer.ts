@@ -15,6 +15,12 @@ export class WebViewObserver {
     }
 
     public init() {
+        window.addEventListener('message', ({ data }) => {
+            try {
+                const { eventType, eventData } = JSON.parse(data);
+                this.handleEvents(eventType, eventData);
+            } catch(e) {}
+          });
         this.handlePlatformListener(window.TelegramGameProxy);
         this.handlePlatformListener(window.Telegram.WebView);
         this.handlePlatformListener(window.TelegramGameProxy_receiveEvent);
@@ -37,14 +43,14 @@ export class WebViewObserver {
         const observer = this;
 
         listener.receiveEvent = (eventType: string, eventData: unknown) => {
-            observer.handleWebViewEvents(eventType, eventData);
+            observer.handleEvents(eventType, eventData);
 
             return originalReceiveEvent.call(listener, eventType, eventData);
         }
 
     }
 
-    private handleWebViewEvents(eventType: string, eventData: Record<string, any>) {
+    private handleEvents(eventType: string, eventData: Record<string, any>) {
         if (eventType === 'invoice_closed') {
             if (this.eventStatusMap[eventData.status]) {
                 this.analyticsController.collectEvent(this.eventStatusMap[eventData.status], {
