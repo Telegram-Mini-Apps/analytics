@@ -57,7 +57,7 @@ export class App {
     public recordEvents(
         data: Record<string, any>[],
     ) {
-        return this.networkController.recordEvents(data, false);
+        return this.networkController.recordEvents(data);
     }
 
     public collectEvent(event_name: string, requestBody?: Record<string, any>){
