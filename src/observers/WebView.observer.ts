@@ -6,7 +6,7 @@ export class WebViewObserver {
 
     private readonly eventStatusMap = {
         paid: Events.PURCHASE_SUCCESS,
-        cancelled: Events.PURCHASE_FAILED,
+        cancelled: Events.PURCHASE_CANCELLED,
         failed: Events.PURCHASE_FAILED,
     }
 
