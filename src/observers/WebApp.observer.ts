@@ -13,7 +13,7 @@ export class WebAppObserver {
     }
 
     public init() {
-        if (this.webApp) {
+        if (this.webApp && this.webApp?.openInvoice) {
             const originalOpenInvoice = this.webApp.openInvoice;
 
             this.webApp.openInvoice = (url: string, callback: any) => {
@@ -27,5 +27,4 @@ export class WebAppObserver {
             };
         }
     }
-
 }
