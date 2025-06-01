@@ -17,7 +17,11 @@ export class WebAppObserver {
             const originalOpenInvoice = this.webApp.openInvoice;
 
             this.webApp.openInvoice = (url: string, callback: any) => {
-                const slug = url.split('/').pop() || '';
+                let slug = url.split('/').pop() || '';
+
+                if (slug.startsWith('$')){
+                    slug = slug.slice(1);
+                }
 
                 this.analyticsController.collectEvent(Events.PURCHASE_INIT, {
                     slug
