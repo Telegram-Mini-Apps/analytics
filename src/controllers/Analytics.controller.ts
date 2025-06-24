@@ -2,7 +2,6 @@ import { App } from '../app'
 import { TonConnectObserver } from "../observers/TonConnect.observer";
 import { DocumentObserver } from "../observers/Document.observer";
 import {BACKEND_URL, STAGING_BACKEND_URL} from "../constants";
-import { TappsObserver } from "../observers/tapps/Tapps.observer";
 import {WebAppObserver} from "../observers/WebApp.observer";
 import {WebViewObserver} from "../observers/WebView.observer";
 
@@ -60,9 +59,5 @@ export class AnalyticsController {
         if (this.eventsThreshold[event_name]) {
             this.eventsThreshold[event_name]--;
         }
-    }
-
-    public collectTappsEvent(event_name: string, data?: Record<string, any>) {
-        this.appModule.collectTappsEvent(event_name, data);
     }
 }

@@ -74,16 +74,6 @@ export class App {
         });
     }
 
-    public collectTappsEvent(event_name: string, requestBody?: Record<string, any>){
-        this.batchService.collect(event_name, {
-            ...this.sessionController.assembleEventSession(),
-            custom_data: {
-                userData: {...this.sessionController.getUserData()},
-                ...requestBody
-            },
-        });
-    }
-
     public getApiToken() {
         return this.apiToken;
     }
