@@ -2,7 +2,6 @@ import { App } from '../app'
 import { TonConnectObserver } from "../observers/TonConnect.observer";
 import { DocumentObserver } from "../observers/Document.observer";
 import {BACKEND_URL, STAGING_BACKEND_URL} from "../constants";
-import { TappsObserver } from "../observers/tapps/Tapps.observer";
 import {WebAppObserver} from "../observers/WebApp.observer";
 import {WebViewObserver} from "../observers/WebView.observer";
 
@@ -12,9 +11,10 @@ export class AnalyticsController {
     private documentObserver: DocumentObserver;
     private webAppObserver: WebAppObserver;
     private webViewObserver: WebViewObserver;
-    private tappsObserver: TappsObserver;
 
-    private eventsThreshold: Record<string, number>
+    private eventsThreshold: Record<string, number> = {
+        'app-hide': 3,
+    };
 
     constructor(app: App) {
         this.appModule = app;
@@ -23,7 +23,6 @@ export class AnalyticsController {
         this.tonConnectObserver = new TonConnectObserver(this);
         this.webAppObserver = new WebAppObserver(this);
         this.webViewObserver = new WebViewObserver(this);
-        this.tappsObserver = new TappsObserver(this);
     }
 
     public async init() {
@@ -31,7 +30,6 @@ export class AnalyticsController {
         this.tonConnectObserver.init();
         this.webAppObserver.init();
         this.webViewObserver.init();
-        this.tappsObserver.init()
 
         try {
             this.eventsThreshold = await (
@@ -43,11 +41,8 @@ export class AnalyticsController {
                 )
             ).json();
         } catch (e) {
-            this.eventsThreshold = {
-                'app-hide': 3,
-            };
+            console.error(e);
         }
-
     }
 
     public recordEvent(event_name: string, data?: Record<string, any>) {
@@ -64,9 +59,5 @@ export class AnalyticsController {
         if (this.eventsThreshold[event_name]) {
             this.eventsThreshold[event_name]--;
         }
-    }
-
-    public collectTappsEvent(event_name: string, data?: Record<string, any>) {
-        this.appModule.collectTappsEvent(event_name, data);
     }
 }
