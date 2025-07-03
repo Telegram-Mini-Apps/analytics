@@ -26,7 +26,7 @@ Telegram Analytics is a powerful SDK and API that enables your mini-application 
 ## Installation
 
 > [!IMPORTANT]
->First of all, you must generate an access token through the [Data Chief](https://t.me/DataChief_bot) bot. For detailed instructions on how to connect SDK and receive a token, please refer to the [documentation](https://docs.tganalytics.xyz/).
+>First of all, you must generate an access token through the [TON Builders](https://builders.ton.org). For detailed instructions on how to connect SDK and receive a token, please refer to the [documentation](https://docs.tganalytics.xyz/).
 
 After token generation, you need to initialize the SDK.
 
